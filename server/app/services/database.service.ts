@@ -1,5 +1,6 @@
 import * as pg from 'pg';
 import { singleton } from 'tsyringe';
+import { Client } from 'common/tables/client';
 
 @singleton()
 export class DatabaseService {
@@ -16,5 +17,13 @@ export class DatabaseService {
 
     public async testConnection() {
         return await this.pool.connect();
+    }
+
+    public async getClients(): Promise<Client[]> {
+        const client = await this.pool.connect();
+        const query = `SELECT * FROM TP4_Livraison.Client;`;
+        const res = await client.query(query);
+        client.release();
+        return res.rows;
     }
 }

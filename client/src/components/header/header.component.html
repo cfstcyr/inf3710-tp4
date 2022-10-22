@@ -1,13 +1,15 @@
-<mat-toolbar [ngClass]="['header', Display.flex, Display.flexSpaceBetween]" color="primary">
-    <div>
-        <span class="header__title">INF3710 TP4</span>
-    </div>
-    <div [ngClass]="['header__items-container', Display.flex, Display.gap[4]]">
-        <span *ngFor="let item of items" [ngClass]="['header__item', Typography.h5, (item.active ? 'header__item--active' : '')]">
-            <a 
-                routerLink="{{ item.active ? null : item.path }}"
-                [ngClass]="[Colors.white, Typography.decoration.none, Typography.weight.normal]"
-            >{{ item.title }}</a>
-        </span>
+<mat-toolbar [ngClass]="['header']" color="primary">
+    <div [ngClass]="[Display.flex, Display.flexSpaceBetween, 'container--no-pad']">
+        <div>
+            <span class="header__title">INF3710 TP4</span>
+        </div>
+        <div [ngClass]="['header__items-container', Display.flex, Display.gap[4]]">
+            <span *ngFor="let item of items" [ngClass]="['header__item', Typography.h5, (item.active ? 'header__item--active' : '')]">
+                <a 
+                    routerLink="{{ item.active ? null : item.path }}"
+                    [ngClass]="[Colors.white, Typography.decoration.none, Typography.weight.normal]"
+                >{{ item.title }}</a>
+            </span>
+        </div>
     </div>
 </mat-toolbar>
