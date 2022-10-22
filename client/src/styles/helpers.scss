@@ -1,0 +1,125 @@
+@use "sass:map";
+
+$space: (
+    1: 6px,
+    2: 8px,
+    3: 12px,
+    4: 16px,
+    5: 24px,
+    6: 48px,
+);
+
+$weights: (
+    'normal': 400,
+    'semibold': 500,
+    'bold': 700,
+    'extrabold': 800,
+);
+
+$decorations: (
+    'n': none,
+    'under': 'underline'
+);
+
+$colors: (
+    'white': white,
+    'black': black,
+);
+
+$font-sizes: (
+    'h6': 0.8em,
+    'h5': 0.9em,
+    'h4': 1em,
+    'h3': 1.1em,
+    'h2': 1.2em,
+    'h1': 1.4em,
+);
+
+$screens: (
+    'small': (
+        'min': 0px,
+        'max': 599px,
+    ),
+    'medium': (
+        'min': 600px,
+        'max': 1280px,
+    ),
+    'large': (
+        'min': 1281px,
+        'max': 999999999px,
+    ),
+);
+
+.d {
+    &--flex {
+        display: flex;
+
+        &--space-between {
+            justify-content: space-between;
+        }
+    }
+
+    &--gap {
+        @each $key, $val in $space {
+            &-#{$key} {
+                gap: $val;
+            }
+        }
+    }
+}
+
+.t {
+    @each $size, $value in $font-sizes {
+        &--#{$size} {
+            font-size: $value;
+        }
+    }
+
+    &--d {
+        @each $decoration, $value in $decorations {
+            &--#{$decoration} {
+                text-decoration: $value;
+            }
+        }
+    }
+
+    &--w {
+        @each $weight, $value in $weights {
+            &--#{$weight} {
+                font-weight: $value;
+            }
+        }
+    }
+}
+
+.c {
+    @each $name, $color in $colors {
+        &--#{$name} {
+            color: $color;
+        }
+    }
+}
+
+.s {
+    &--only {
+        @each $screen, $val in $screens {
+            &--#{$screen} {
+                @media (max-width: map.get($val, 'min')) {
+                    display: none;
+                }
+                @media (min-width: map.get($val, 'max')) {
+                    display: none;
+                }
+            }
+        }
+    }
+    &--hide {
+        @each $screen, $val in $screens {
+            &--#{$screen} {
+                @media (min-width: map.get($val, 'min')) and (max-width: map.get($val, 'max')) {
+                    display: none;
+                }
+            }
+        }
+    }
+}
