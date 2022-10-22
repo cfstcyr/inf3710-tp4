@@ -37,7 +37,6 @@ services:
 
   db:
     image: postgres:14.1-alpine
-    restart: always
     environment:
       - POSTGRES_USER=root_tp4
       - POSTGRES_PASSWORD=root_tp4
