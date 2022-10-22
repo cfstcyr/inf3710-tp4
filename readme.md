@@ -5,11 +5,11 @@
 ### With Docker
 
 To lauch the docker development containers.
-```
+```shell
 make compose
 ```
 Or in detach mode.
-```
+```shell
 make compose-detach
 ```
 
@@ -24,7 +24,7 @@ Docker starts 4 services on each of their respective ports.
 
 It is possible that some of theses ports are in use (for example, a postgresql database on port `5432`). You can override each of these ports with environment variables with the compose command.
 
-```
+```shell
 CLIENT_PORT=4200 SERVER_PORT=3000 DB_PORT=5432 PGADMIN_PORT=5050 make compose
 ```
 
