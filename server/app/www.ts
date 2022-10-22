@@ -1,13 +1,12 @@
 import 'reflect-metadata';
+import 'dotenv/config';
 import { container } from 'tsyringe';
 import { Server } from './server';
 
-// const server: Server = container.get<Server>(Types.Server);
-
-// server.init();
-
-(() => {
+(async () => {
     const server = container.resolve(Server);
+
+    await server.testDBConnection();
 
     server.init();
 })();

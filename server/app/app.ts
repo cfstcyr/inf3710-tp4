@@ -7,9 +7,9 @@ import { DatabaseController } from './controllers/database.controller';
 import { HttpException } from './models/http-exception';
 import { StatusCodes } from 'http-status-codes';
 import { DefaultController } from './controllers/default.controller';
-import { injectable } from 'tsyringe';
+import { singleton } from 'tsyringe';
 
-@injectable()
+@singleton()
 export class Application {
     public app: express.Application;
 

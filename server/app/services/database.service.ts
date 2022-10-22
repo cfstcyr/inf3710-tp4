@@ -1,16 +1,20 @@
-import { injectable } from 'inversify';
 import * as pg from 'pg';
+import { singleton } from 'tsyringe';
 
-@injectable()
+@singleton()
 export class DatabaseService {
-    public connectionConfig: pg.ConnectionConfig = {
-        user: 'postgres',
-        database: 'TP4',
-        password: 'root',
-        port: 5432, // Warning: can also be 5433 for some users
-        host: '127.0.0.1',
+    private connectionConfig: pg.ConnectionConfig = {
+        user: process.env.DB_USER,
+        database: process.env.DB_NAME,
+        password: process.env.DB_PASSWORD,
+        port: Number(process.env.DB_PORT), // Warning: can also be 5433 for some users
+        host: process.env.DB_HOST,
         keepAlive: true,
     };
 
     public pool: pg.Pool = new pg.Pool(this.connectionConfig);
+
+    public async testConnection() {
+        return await this.pool.connect();
+    }
 }

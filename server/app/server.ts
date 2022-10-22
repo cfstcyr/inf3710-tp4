@@ -1,39 +1,42 @@
 import * as http from 'http';
 import { AddressInfo } from 'net';
-import { injectable } from 'tsyringe';
+import { singleton } from 'tsyringe';
 import { Application } from './app';
+import { DatabaseService } from './services/database.service';
 
-@injectable()
+@singleton()
 export class Server {
-    private readonly appPort: string | number | boolean = this.normalizePort(
-        process.env.PORT || '3000',
-    );
+    private readonly appPort = this.normalizePort(process.env.PORT) ?? 3000;
     private readonly baseDix: number = 10;
     private server: http.Server;
 
-    public constructor(private application: Application) {}
+    public constructor(
+        private application: Application,
+        private databaseService: DatabaseService,
+    ) {}
 
     public init(): void {
-        this.application.app.set('port', this.appPort);
-
-        this.server = http.createServer(this.application.app);
-
-        this.server.listen(this.appPort);
-        this.server.on('error', (error: NodeJS.ErrnoException) =>
-            this.onError(error),
+        this.application.app.listen(this.appPort, () =>
+            console.log(
+                `Server up on port ${this.appPort} (http://127.0.0.1:${this.appPort})`,
+            ),
         );
-        this.server.on('listening', () => this.onListening());
     }
 
-    private normalizePort(val: number | string): number | string | boolean {
-        const port: number =
-            typeof val === 'string' ? parseInt(val, this.baseDix) : val;
-        if (isNaN(port)) {
-            return val;
-        } else if (port >= 0) {
-            return port;
-        } else {
-            return false;
+    public async testDBConnection() {
+        const res = await this.databaseService.testConnection();
+        console.log('DB connection OK');
+        return res;
+    }
+
+    private normalizePort(val: number | string | undefined): number {
+        switch (typeof val) {
+            case 'number':
+                return val;
+            case 'string':
+                return parseInt(val);
+            default:
+                return 3000;
         }
     }
 
