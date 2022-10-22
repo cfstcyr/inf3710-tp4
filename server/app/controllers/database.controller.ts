@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { injectable } from 'inversify';
+import { singleton } from 'tsyringe';
 // import { DatabaseService } from '../services/database.service';
 // import Types from '../types';
 
-@injectable()
+@singleton()
 export class DatabaseController {
     // public constructor(
     // @inject(Types.DatabaseService)

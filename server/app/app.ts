@@ -2,20 +2,20 @@ import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
 import * as express from 'express';
-import { inject, injectable } from 'inversify';
 import * as logger from 'morgan';
 import { DatabaseController } from './controllers/database.controller';
 import { HttpException } from './models/http-exception';
-import Types from './types';
 import { StatusCodes } from 'http-status-codes';
+import { DefaultController } from './controllers/default.controller';
+import { injectable } from 'tsyringe';
 
 @injectable()
 export class Application {
     public app: express.Application;
 
     public constructor(
-        @inject(Types.DatabaseController)
-        private databaseController: DatabaseController
+        private databaseController: DatabaseController,
+        private defaultController: DefaultController,
     ) {
         this.app = express();
         this.config();
@@ -33,6 +33,7 @@ export class Application {
 
     public bindRoutes(): void {
         // Notre application utilise le routeur de notre API
+        this.app.use('/', this.defaultController.router);
         this.app.use('/database', this.databaseController.router);
         this.errorHandeling();
     }
@@ -42,10 +43,10 @@ export class Application {
             (
                 req: express.Request,
                 res: express.Response,
-                next: express.NextFunction
+                next: express.NextFunction,
             ) => {
                 next(new HttpException('Not Found', StatusCodes.NOT_FOUND));
-            }
+            },
         );
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -55,19 +56,19 @@ export class Application {
                 req: express.Request,
                 res: express.Response,
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                next: express.NextFunction
+                next: express.NextFunction,
             ) => {
                 res.status(
                     err instanceof HttpException
                         ? err.status
-                        : StatusCodes.INTERNAL_SERVER_ERROR
+                        : StatusCodes.INTERNAL_SERVER_ERROR,
                 );
 
                 res.send({
                     message: err.message,
                     error: err,
                 });
-            }
+            },
         );
     }
 }

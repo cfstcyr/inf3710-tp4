@@ -1,8 +1,13 @@
 import 'reflect-metadata';
-import { container } from './inversify.config';
+import { container } from 'tsyringe';
 import { Server } from './server';
-import Types from './types';
 
-const server: Server = container.get<Server>(Types.Server);
+// const server: Server = container.get<Server>(Types.Server);
 
-server.init();
+// server.init();
+
+(() => {
+    const server = container.resolve(Server);
+
+    server.init();
+})();
