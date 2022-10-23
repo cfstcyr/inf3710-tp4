@@ -1,6 +1,5 @@
 import * as pg from 'pg';
 import { singleton } from 'tsyringe';
-import { Client } from 'common/tables/client';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
