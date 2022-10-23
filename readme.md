@@ -32,4 +32,4 @@ CLIENT_PORT=4200 SERVER_PORT=3000 DB_PORT=5432 PGADMIN_PORT=5050 make compose
 
 #### Configuration
 
-You have to setup the `.env` files in `server/` and `client/`. Both directories have a `.env.example` file to start from. Then, both apps can be started separatly with `npm start`.
+You have to setup the `.env` files in `server/`. The directory have a `.env.example` file to start from. Then, both apps can be started separatly with `npm start`.
