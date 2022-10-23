@@ -12,7 +12,7 @@ export class DatabaseService {
         user: process.env.DB_USER,
         database: process.env.DB_NAME,
         password: process.env.DB_PASSWORD,
-        port: Number(process.env.DB_PORT), // Warning: can also be 5433 for some users
+        port: Number(process.env.DB_PORT),
         host: process.env.DB_HOST,
         keepAlive: true,
     };
@@ -24,22 +24,17 @@ export class DatabaseService {
     }
 
     public async resetDatabase() {
-        const client = await this.pool.connect();
-        const query = readFileSync(
-            resolve(__dirname, this.resetSQLFile),
-            'utf-8',
+        await this.query<never>(
+            readFileSync(resolve(__dirname, this.resetSQLFile), 'utf-8'),
         );
-        await client.query(query);
-        client.release();
     }
 
     public getResetDatabaseScript() {
         return readFileSync(resolve(__dirname, this.resetSQLFile), 'utf-8');
     }
 
-    public async getClients(): Promise<Client[]> {
+    public async query<T>(query: string): Promise<T[]> {
         const client = await this.pool.connect();
-        const query = `SELECT * FROM TP4_Livraison.Client;`;
         const res = await client.query(query);
         client.release();
         return res.rows;

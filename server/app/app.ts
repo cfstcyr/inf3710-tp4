@@ -3,19 +3,19 @@ import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
 import * as express from 'express';
 import * as logger from 'morgan';
-import { DatabaseController } from './controllers/database.controller';
 import { HttpException } from './models/http-exception';
 import { StatusCodes } from 'http-status-codes';
-import { DefaultController } from './controllers/default.controller';
-import { singleton } from 'tsyringe';
+import { injectAll, singleton } from 'tsyringe';
+import './controllers';
+import { AbstractController } from './controllers/abstract.controller';
+import { Types } from './types';
 
 @singleton()
 export class Application {
     public app: express.Application;
 
     public constructor(
-        private databaseController: DatabaseController,
-        private defaultController: DefaultController,
+        @injectAll(Types.Controllers) private controllers: AbstractController[],
     ) {
         this.app = express();
         this.config();
@@ -32,9 +32,10 @@ export class Application {
     }
 
     public bindRoutes(): void {
-        // Notre application utilise le routeur de notre API
-        this.app.use('/', this.defaultController.router);
-        this.app.use('/db', this.databaseController.router);
+        for (const controller of this.controllers) {
+            this.app.use(controller.path, controller.router);
+        }
+
         this.errorHandeling();
     }
 

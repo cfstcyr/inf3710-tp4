@@ -1,3 +1,6 @@
+export type StatusItem = 'ok' | 'error';
+
 export interface Status {
-    status: 'ok' | 'error';
+    server: StatusItem;
+    db: StatusItem;
 }

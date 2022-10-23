@@ -2,8 +2,11 @@
     <mat-card>
         <div [ngClass]="[Display.flex, Display.justify.between]">
             <h1 [ngClass]="[Display.margin[0]]">Home</h1>
-            <span [ngClass]="[Display.flex, Display.gap[2], Display.align.center]">
-                Status : <mat-chip-list><mat-chip>{{ status }}</mat-chip></mat-chip-list>
+            <span [ngClass]="[Display.flex, Display.gap[2], Display.align.center]" *ngIf="status">
+                <mat-chip-list>
+                    <mat-chip>Server: <b>{{ status.server }}</b></mat-chip>
+                    <mat-chip>Database: <b>{{ status.db }}</b></mat-chip>
+                </mat-chip-list>
             </span>
         </div>
     </mat-card>

@@ -1,25 +1,27 @@
 import { Router } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { singleton } from 'tsyringe';
+import { registry, singleton } from 'tsyringe';
+import { Types } from '../types';
+import { AbstractController } from './abstract.controller';
+import { Status } from 'common/communication/status';
 import { DatabaseService } from '../services/database.service';
 
 @singleton()
-export class DefaultController {
-    constructor(private databaseService: DatabaseService) {}
+@registry([{ token: Types.Controllers, useClass: DefaultController }])
+export class DefaultController extends AbstractController {
+    constructor(private readonly databaseService: DatabaseService) {
+        super('/');
+    }
 
-    public get router(): Router {
-        const router: Router = Router();
-
-        router.get('/', (req, res) => {
-            res.json({ status: 'ok' });
+    protected configRouter(router: Router): void {
+        router.get('/', async (req, res) => {
+            const status: Status = {
+                server: 'ok',
+                db: (await this.databaseService.testConnection())
+                    ? 'ok'
+                    : 'error',
+            };
+            res.status(StatusCodes.OK).json(status);
         });
-
-        router.get('/client', async (req, res) => {
-            res.status(StatusCodes.OK).json(
-                await this.databaseService.getClients(),
-            );
-        });
-
-        return router;
     }
 }
