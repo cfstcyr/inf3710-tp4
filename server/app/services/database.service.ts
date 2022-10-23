@@ -1,9 +1,13 @@
 import * as pg from 'pg';
 import { singleton } from 'tsyringe';
 import { Client } from 'common/tables/client';
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
 
 @singleton()
 export class DatabaseService {
+    private resetSQLFile = '../../../database/TP4_Livraison.sql';
+
     private connectionConfig: pg.ConnectionConfig = {
         user: process.env.DB_USER,
         database: process.env.DB_NAME,
@@ -17,6 +21,20 @@ export class DatabaseService {
 
     public async testConnection() {
         return await this.pool.connect();
+    }
+
+    public async resetDatabase() {
+        const client = await this.pool.connect();
+        const query = readFileSync(
+            resolve(__dirname, this.resetSQLFile),
+            'utf-8',
+        );
+        await client.query(query);
+        client.release();
+    }
+
+    public getResetDatabaseScript() {
+        return readFileSync(resolve(__dirname, this.resetSQLFile), 'utf-8');
     }
 
     public async getClients(): Promise<Client[]> {

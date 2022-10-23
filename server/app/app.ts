@@ -34,7 +34,7 @@ export class Application {
     public bindRoutes(): void {
         // Notre application utilise le routeur de notre API
         this.app.use('/', this.defaultController.router);
-        this.app.use('/database', this.databaseController.router);
+        this.app.use('/db', this.databaseController.router);
         this.errorHandeling();
     }
 

@@ -1,0 +1,18 @@
+<div class="container">
+    <h1>Settings</h1>
+
+    <mat-card>
+        <div [ngClass]="[Display.flex, Display.justify.between, Display.align.start]">
+            <div>
+                <h2>Reset</h2>
+                <p>This will reset the database and recreate the tables using the file bellow.</p>
+            </div>
+            
+            <button mat-flat-button color="warn" (click)="reset()">Warn</button>
+        </div>
+
+        <textarea readonly [ngClass]="['code-block']" rows="18">
+            {{ resetScript }}
+        </textarea>
+    </mat-card>
+</div>

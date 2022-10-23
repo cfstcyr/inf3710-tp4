@@ -9,6 +9,7 @@ services:
     volumes:
       - ./server:/src
       - ./common:/common
+      - ./database:/database
     ports:
       - ${SERVER_PORT:-3000}:3000
     environment:
