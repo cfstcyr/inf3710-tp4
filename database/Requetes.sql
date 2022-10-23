@@ -1,7 +1,7 @@
 -- 4.1 Affichez les numéros (numéroclient) et les noms (nomclient) des clients 
 -- qui ont commandé un repas avec un prix compris entre 20 dollars et 40 dollars
 
-SELECT c.idClient, c.nomClient
+SELECT DISTINCT c.idClient, c.nomClient
 FROM TP4_Livraison.Client c
 INNER JOIN TP4_Livraison.Abonner abo 
     ON c.idClient = abo.idClient
