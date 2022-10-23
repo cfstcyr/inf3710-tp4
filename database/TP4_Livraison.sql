@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS TP4_Livraison.PlanRepas (
     frequence INT NOT NULL,
     nbrPersonnes INT NOT NULL,
     nbrCalories INT NOT NULL,
-    prix DECIMAL(5, 2) NOT NULL,
+    prix DECIMAL(7, 2) NOT NULL,
     idFournisseur SMALLINT NOT NULL,
 
     FOREIGN KEY (idFournisseur) REFERENCES TP4_Livraison.Fournisseur ON UPDATE CASCADE ON DELETE CASCADE,
@@ -129,6 +129,7 @@ INSERT INTO TP4_Livraison.Fournisseur VALUES (3, 'QC Transport',        'Rue du 
 INSERT INTO TP4_Livraison.Fournisseur VALUES (4, 'Benjamin',            'Rue de Marseille Montréal B2B 2B2');
 INSERT INTO TP4_Livraison.Fournisseur VALUES (5, NULL,                  'Rue qui existe pas');
 INSERT INTO TP4_Livraison.Fournisseur VALUES (6, 'AB Transport',        'Rue C');
+INSERT INTO TP4_Livraison.Fournisseur VALUES (7, 'Big money guy',       'Rue Boogie');
 
 --                                          id  categorie    fréquence  personnes   calories    prix    fournisseur
 INSERT INTO TP4_Livraison.PlanRepas VALUES (1, 'végétarien', 2,         2,          150,        22.00,  1);
@@ -136,6 +137,8 @@ INSERT INTO TP4_Livraison.PlanRepas VALUES (2, 'indien',     1,         4,      
 INSERT INTO TP4_Livraison.PlanRepas VALUES (3, 'japonais',   1,         4,          350,        52.50,  2);
 INSERT INTO TP4_Livraison.PlanRepas VALUES (4, 'français',   2,         2,          350,        26.25,  2);
 INSERT INTO TP4_Livraison.PlanRepas VALUES (5, 'cetogène',   3,         3,          80,         17.75,  2);
+INSERT INTO TP4_Livraison.PlanRepas VALUES (6, 'fanceyoyy',  8,         80,         12000,      15000,  7);
+INSERT INTO TP4_Livraison.PlanRepas VALUES (7, 'moneymoney', 5,         12,         22000,      9000,   7);
 
 --                                        client    plan   duree
 INSERT INTO TP4_Livraison.Abonner VALUES (1,        2,     4);
