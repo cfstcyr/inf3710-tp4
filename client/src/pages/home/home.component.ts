@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/services/api-service/api.service';
 import { s } from 'src/utils/url';
 import { Client } from 'common/tables/client';
+import { DataService } from 'src/services/data-service/data.service';
 
 @Component({
   selector: 'app-home',
@@ -14,24 +15,19 @@ export class HomeComponent implements OnInit {
   protected clients: Client[];
   protected clientsColumns: string[];
 
-  constructor(private apiService: ApiService, private httpClient: HttpClient) {
+  constructor(private apiService: ApiService, private dataService: DataService) {
     this.clients = [];
     this.clientsColumns = [];
   }
 
   ngOnInit(): void {
-    this.getStatus()
+    this.apiService.status()
       .subscribe((res) => this.status = res.status);
 
-      this.httpClient.get<Client[]>(s('/user')).subscribe((clients) => {
+    this.dataService.getClients()
+      .subscribe((clients) => {
         this.clients = clients;
         this.clientsColumns = clients.length > 0 ? Object.keys(clients[0]) : [];
-
-        console.log(this.clients, this.clientsColumns);
       });
-  }
-  
-  getStatus() {
-    return this.apiService.getStatus();
   }
 }

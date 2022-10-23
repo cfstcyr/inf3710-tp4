@@ -13,7 +13,7 @@ export class DefaultController {
             res.json({ status: 'ok' });
         });
 
-        router.get('/user', async (req, res) => {
+        router.get('/client', async (req, res) => {
             res.json(await this.databaseService.getClients());
         });
 

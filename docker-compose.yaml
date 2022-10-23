@@ -27,12 +27,12 @@ services:
     build:
       context: ./client
       args: 
-        - PORT=${CLIENT_PORT:-3000}
+        - PORT=4200
     volumes:
       - ./client:/src
       - ./common:/common
     ports:
-      - ${CLIENT_PORT:-3000}:4200
+      - ${CLIENT_PORT:-4200}:4200
     command: ng serve --host 0.0.0.0 --port 4200
     environment:
       - NG_APP_SERVER_URL=http://localhost:${SERVER_PORT:-3000}
