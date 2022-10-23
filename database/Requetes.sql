@@ -41,16 +41,14 @@ WHERE f.nomfournisseur is NULL
 -- faites par le fournisseur dont le nom est 'AB Transport'
 
 WITH totallivraisonsfournisseurs AS (
-    SELECT fourn.idfournisseur, fourn.nomfournisseur, SUM(plan.prix) as totallivraisons 
+    SELECT fourn.idfournisseur, fourn.nomfournisseur, (CASE WHEN (SUM(plan.prix) IS NOT NULL) THEN SUM(plan.prix) ELSE 0 END) as totallivraisons 
     FROM TP4_Livraison.Abonner abo
     LEFT JOIN TP4_Livraison.PlanRepas plan
         ON abo.idPlan = plan.idplanRepas
-	LEFT JOIN TP4_Livraison.Fournisseur fourn
+	FULL OUTER JOIN TP4_Livraison.Fournisseur fourn
         ON plan.idFournisseur = fourn.idFournisseur
 	GROUP BY fourn.idfournisseur
 )
-
---SELECT * FROM totallivraisonsfournisseurs
 
 SELECT nomfournisseur
 FROM totallivraisonsfournisseurs
@@ -58,7 +56,7 @@ WHERE totallivraisons > (
 	SELECT totallivraisons 
 	FROM totallivraisonsfournisseurs 
 	WHERE nomfournisseur = 'AB Transport'
-)
+);
 
 -- 4.6 Affichez les adresses (adressefournisseur) et le montant total des 
 -- prix des livraisons de plans repas des fournisseurs ayant les deux plus 

@@ -128,6 +128,7 @@ INSERT INTO TP4_Livraison.Fournisseur VALUES (2, 'RICARDO',             'Rue de 
 INSERT INTO TP4_Livraison.Fournisseur VALUES (3, 'QC Transport',        'Rue du Québec');
 INSERT INTO TP4_Livraison.Fournisseur VALUES (4, 'Benjamin',            'Rue de Marseille Montréal B2B 2B2');
 INSERT INTO TP4_Livraison.Fournisseur VALUES (5, NULL,                  'Rue qui existe pas');
+INSERT INTO TP4_Livraison.Fournisseur VALUES (6, 'AB Transport',        'Rue C');
 
 --                                          id  categorie    fréquence  personnes   calories    prix    fournisseur
 INSERT INTO TP4_Livraison.PlanRepas VALUES (1, 'végétarien', 2,         2,          150,        22.00,  1);
