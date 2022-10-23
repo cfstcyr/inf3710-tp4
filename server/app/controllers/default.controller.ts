@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { StatusCodes } from 'http-status-codes';
 import { singleton } from 'tsyringe';
 import { DatabaseService } from '../services/database.service';
 
@@ -14,7 +15,9 @@ export class DefaultController {
         });
 
         router.get('/client', async (req, res) => {
-            res.json(await this.databaseService.getClients());
+            res.status(StatusCodes.OK).json(
+                await this.databaseService.getClients(),
+            );
         });
 
         return router;

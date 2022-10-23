@@ -1,9 +1,15 @@
 <div class="container">
-    <h1>Home</h1>
-    <p [ngClass]="[Display.flex, Display.gap[2], Display.align.center]">
-        Status : <mat-chip-list><mat-chip>{{ status }}</mat-chip></mat-chip-list>
-    </p>
-        
+    <mat-card>
+        <div [ngClass]="[Display.flex, Display.justify.between]">
+            <h1 [ngClass]="[Display.margin[0]]">Home</h1>
+            <span [ngClass]="[Display.flex, Display.gap[2], Display.align.center]">
+                Status : <mat-chip-list><mat-chip>{{ status }}</mat-chip></mat-chip-list>
+            </span>
+        </div>
+    </mat-card>
+    
+    <br>
+    
     <mat-card>
         <table mat-table [dataSource]="clients" [ngStyle]="{ width: '100%' }">
             <ng-container *ngFor="let col of clientsColumns">
@@ -17,5 +23,9 @@
             <tr mat-header-row *matHeaderRowDef="clientsColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: clientsColumns;"></tr>
         </table>
+
+        <div [ngClass]="[Display.flex, Display.justify.end, Display.margin.top[3], Display.gap[3]]">
+            <button mat-flat-button color="primary" (click)="dataService.fetchClients()">Update</button>
+        </div>
     </mat-card>    
 </div>

@@ -16,7 +16,7 @@ export class HomeComponent extends HelpersComponent implements OnInit {
   protected clients: Client[];
   protected clientsColumns: string[];
 
-  constructor(private apiService: ApiService, private dataService: DataService) {
+  constructor(private apiService: ApiService, protected dataService: DataService) {
     super();
     this.clients = [];
     this.clientsColumns = [];

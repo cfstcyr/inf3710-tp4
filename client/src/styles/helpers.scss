@@ -1,6 +1,7 @@
 @use "sass:map";
 
 $space: (
+    0: 0px,
     1: 6px,
     2: 8px,
     3: 12px,
@@ -53,12 +54,22 @@ $screens: (
 $flex-justify: (
     'between': space-between,
     'around': space-around,
+    'start': flex-start,
+    'end': flex-end,
+    'center': center,
 );
 
 $flex-align: (
     'center': center,
     'start': flex-start,
     'end': flex-end,
+);
+
+$positions: (
+    't': top,
+    'b': bottom,
+    'l': left,
+    'r': right,
 );
 
 .d {
@@ -82,6 +93,78 @@ $flex-align: (
         @each $key, $val in $space {
             &-#{$key} {
                 gap: $val;
+            }
+        }
+    }
+
+    &--m {
+        @each $key, $val in $space {
+            &-#{$key} {
+                margin: $val !important;
+            }
+        }
+
+        @each $position, $valp in $positions {
+            &-#{$position} {
+                @each $key, $val in $space {
+                    &-#{$key} {
+                        margin-#{$valp}: $val !important;
+                    }
+                }
+            }
+        }
+
+        &-v {
+            @each $key, $val in $space {
+                &-#{$key} {
+                    margin-bottom: $val !important;
+                    margin-top: $val !important;
+                }
+            }
+        }
+
+        &-h {
+            @each $key, $val in $space {
+                &-#{$key} {
+                    margin-left: $val !important;
+                    margin-right: $val !important;
+                }
+            }
+        }
+    }
+
+    &--p {
+        @each $key, $val in $space {
+            &-#{$key} {
+                padding: $val !important;
+            }
+        }
+
+        @each $position, $valp in $positions {
+            &-#{$position} {
+                @each $key, $val in $space {
+                    &-#{$key} {
+                        padding-#{$valp}: $val !important;
+                    }
+                }
+            }
+        }
+
+        &-v {
+            @each $key, $val in $space {
+                &-#{$key} {
+                    padding-top: $val !important;
+                    padding-bottom: $val !important;
+                }
+            }
+        }
+
+        &-h {
+            @each $key, $val in $space {
+                &-#{$key} {
+                    padding-left: $val !important;
+                    padding-right: $val !important;
+                }
             }
         }
     }
