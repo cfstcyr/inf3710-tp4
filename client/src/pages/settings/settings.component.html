@@ -1,6 +1,10 @@
 <div class="container">
-    <h1>Settings</h1>
+    <mat-card>
+        <h1>Settings</h1>
+    </mat-card>
 
+    <br>
+    
     <mat-card>
         <div [ngClass]="[Display.flex, Display.justify.between, Display.align.start]">
             <div>
@@ -8,7 +12,7 @@
                 <p>This will reset the database and recreate the tables using the file bellow.</p>
             </div>
             
-            <button mat-flat-button color="warn" (click)="reset()">Warn</button>
+            <button mat-flat-button color="warn" (click)="reset()">Reset</button>
         </div>
 
         <textarea readonly [ngClass]="['code-block']" rows="18">
