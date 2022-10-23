@@ -32,9 +32,7 @@
                 </mat-table>
             </div>
 
-            <textarea readonly [ngClass]="['code-block']" rows="12" [ngStyle]="{ lineHeight: '1.4em' }">
-                {{ queryScript.query }}
-            </textarea>
+            <textarea readonly [ngClass]="['code-block']" rows="8" [ngStyle]="{ lineHeight: '1.4em' }">{{ queryScript.query }}</textarea>
         </div>
     </mat-card>
 
@@ -50,8 +48,6 @@
             <button mat-flat-button color="warn" (click)="reset()">Reset</button>
         </div>
 
-        <textarea readonly [ngClass]="['code-block']" rows="18">
-            {{ resetScript }}
-        </textarea>
+        <textarea readonly [ngClass]="['code-block']" rows="18">{{ resetScript }}</textarea>
     </mat-card>
 </div>
