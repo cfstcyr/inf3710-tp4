@@ -115,19 +115,19 @@ ORDER BY LOWER(nomclient)
 -- par pays dont le paysingrédient ne contient pas la lettre g à la troisième position 
 -- de la fin; triés par ordre décroissant selon le nom de l’ingrédient (nomingrédient). 
 
-WITH ingredientstries AS (
-    SELECT *
-    FROM TP4_Livraison.Ingredient
-    WHERE paysIngredient NOT LIKE '%g__'
-    GROUP BY nomIngredient
-    ORDER BY LOWER(nomIngredient) DESC
-)
+-- WITH ingredientstries AS (
+--     SELECT *
+--     FROM TP4_Livraison.Ingredient
+--     WHERE paysIngredient NOT LIKE '%g__'
+--     GROUP BY nomIngredient
+--     ORDER BY LOWER(nomIngredient) DESC
+-- )
 
-SELECT paysingredient, COUNT(idingredient) as nbringredientpays
-FROM TP4_Livraison.Ingredient
-UNION 
-SELECT * FROM ingredientstries
-GROUP BY paysingredient
+-- SELECT paysingredient, COUNT(idingredient) as nbringredientpays
+-- FROM TP4_Livraison.Ingredient
+-- UNION 
+-- SELECT * FROM ingredientstries
+-- GROUP BY paysingredient
 
 WITH ingredientstries AS (
     SELECT *
@@ -136,7 +136,7 @@ WITH ingredientstries AS (
     GROUP BY nomIngredient, idingredient
     ORDER BY LOWER(nomIngredient) DESC
 )
-SELECT * from ingredientstries
+-- SELECT * from ingredientstries
 
 SELECT paysingredient, COUNT(*) as nbringredientpays
 FROM (
