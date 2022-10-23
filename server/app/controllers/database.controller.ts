@@ -19,9 +19,13 @@ export class DatabaseController extends AbstractController {
     }
 
     protected configRouter(router: Router): void {
-        router.post('/reset', async (req, res) => {
-            await this.databaseService.resetDatabase();
-            res.status(StatusCodes.NO_CONTENT).send();
+        router.post('/reset', async (req, res, next) => {
+            try {
+                await this.databaseService.resetDatabase();
+                res.status(StatusCodes.NO_CONTENT).send();
+            } catch (e) {
+                next(e);
+            }
         });
 
         router.get('/reset/script', async (req, res) => {
