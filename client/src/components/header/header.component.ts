@@ -19,8 +19,12 @@ const HEADER_ITEMS: HeaderItem[] = [
   },
   {
     title: 'About',
-    path: '/about'
-  }
+    path: '/about',
+  },
+  {
+    title: 'Settings',
+    path: '/settings',
+  },
 ];
 
 @Component({

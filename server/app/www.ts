@@ -1,8 +1,12 @@
 import 'reflect-metadata';
-import { container } from './inversify.config';
+import 'dotenv/config';
+import { container } from 'tsyringe';
 import { Server } from './server';
-import Types from './types';
 
-const server: Server = container.get<Server>(Types.Server);
+(async () => {
+    const server = container.resolve(Server);
 
-server.init();
+    await server.testDBConnection();
+
+    server.init();
+})();
