@@ -18,7 +18,7 @@ FULL OUTER JOIN TP4_Livraison.Abonner abo
     ON c.idClient = abo.idClient
 FULL OUTER JOIN TP4_Livraison.PlanRepas plan
     on plan.idPlanRepas = abo.idPlan
-FULL OUTER JOIN TP4_Livraison.Fournisseur fourn 
+LEFT JOIN TP4_Livraison.Fournisseur fourn 
     ON plan.idFournisseur = fourn.idFournisseur
 WHERE fourn.nomFournisseur <> 'QC Transport'
 
