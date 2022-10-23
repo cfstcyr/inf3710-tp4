@@ -14,11 +14,12 @@
                 <button mat-flat-button color="primary" (click)="executeScript(queryScript.number)">Execute</button>
             </div>
             
-            <ng-container *ngIf="queryScript.result">
+            <div *ngIf="queryScript.result" [ngStyle]="{ width: '100%', overflowX: 'auto' }">
                 <ng-container *ngIf="queryScript.result.data.length === 0">
                     <p>No result</p>
                 </ng-container>
-                <mat-table [dataSource]="queryScript.result.data" [ngStyle]="{ width: '100%' }" *ngIf="queryScript.result.data.length > 0">
+
+                <mat-table [dataSource]="queryScript.result.data" [ngStyle]="{ width: '100%', display: 'table' }" *ngIf="queryScript.result.data.length > 0">
                     <ng-container *ngFor="let col of queryScript.result.columns">
                         <ng-container [matColumnDef]="col">
                             <th mat-header-cell *matHeaderCellDef>{{ col }}</th>
@@ -29,7 +30,7 @@
                     <tr mat-header-row *matHeaderRowDef="queryScript.result.columns"></tr>
                     <tr mat-row *matRowDef="let row; columns: queryScript.result.columns;"></tr>
                 </mat-table>
-            </ng-container>
+            </div>
 
             <textarea readonly [ngClass]="['code-block']" rows="12" [ngStyle]="{ lineHeight: '1.4em' }">
                 {{ queryScript.query }}
