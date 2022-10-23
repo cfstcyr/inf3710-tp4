@@ -50,12 +50,31 @@ $screens: (
     ),
 );
 
+$flex-justify: (
+    'between': space-between,
+    'around': space-around,
+);
+
+$flex-align: (
+    'center': center,
+    'start': 'flex-start',
+    'end': 'flex-end',
+);
+
 .d {
     &--flex {
         display: flex;
 
-        &--space-between {
-            justify-content: space-between;
+        @each $justify, $value in $flex-justify {
+            &--justify--#{$justify} {
+                justify-content: $value;
+            }
+        }
+
+        @each $align, $value in $flex-align {
+            &--align--#{$align} {
+                align-items: $value;
+            }
         }
     }
 

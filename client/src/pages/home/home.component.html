@@ -1,7 +1,9 @@
 <div class="container">
     <h1>Home</h1>
-    <p>Status : {{ status }}</p>
-    
+    <p [ngClass]="[Display.flex, Display.gap[2], Display.align.center]">
+        Status : <mat-chip-list><mat-chip>{{ status }}</mat-chip></mat-chip-list>
+    </p>
+        
     <mat-card>
         <table mat-table [dataSource]="clients" [ngStyle]="{ width: '100%' }">
             <ng-container *ngFor="let col of clientsColumns">

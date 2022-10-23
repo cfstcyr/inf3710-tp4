@@ -1,6 +1,14 @@
 export const Display = {
     flex: 'd--flex',
-    flexSpaceBetween: 'd--flex--space-between',
+    justify: {
+        between: 'd--flex--justify--between',
+        around: 'd--flex--justify--around',
+    },
+    align: {
+        center: 'd--flex--align--center',
+        start: 'd--flex--align--start',
+        end: 'd--flex--align--end',
+    },
     gap: {
         1: 'd--gap-1',
         2: 'd--gap-2',

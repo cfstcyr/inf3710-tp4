@@ -19,7 +19,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
-import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatChipsModule } from '@angular/material/chips';
 
 const modules = [
     MatButtonModule,
@@ -43,6 +44,7 @@ const modules = [
     MatSortModule,
     MatSelectModule,
     MatToolbarModule,
+    MatChipsModule,
 ];
 
 @NgModule({
