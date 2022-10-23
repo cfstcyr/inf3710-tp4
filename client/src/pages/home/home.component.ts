@@ -26,10 +26,9 @@ export class HomeComponent extends HelpersComponent implements OnInit {
     this.apiService.status()
       .subscribe((res) => this.status = res.status);
 
-    this.dataService.getClients()
-      .subscribe((clients) => {
-        this.clients = clients;
-        this.clientsColumns = clients.length > 0 ? Object.keys(clients[0]) : [];
-      });
+    this.dataService.subscribeClients((clients) => {
+      this.clients = clients;
+      this.clientsColumns = clients.length > 0 ? Object.keys(clients[0]) : [];
+    });
   }
 }
