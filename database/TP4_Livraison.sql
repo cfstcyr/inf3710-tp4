@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS TP4_Livraison.Telephone (
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Fournisseur (
     idFournisseur SMALLINT NOT NULL PRIMARY KEY,
-    nomFournisseur VARCHAR(255) NOT NULL,
+    nomFournisseur VARCHAR(255),
     adresseFournisseur VARCHAR(255) NOT NULL
 );
 
@@ -127,6 +127,7 @@ INSERT INTO TP4_Livraison.Fournisseur VALUES (1, 'IGA Nourriture Inc',  'Rue de 
 INSERT INTO TP4_Livraison.Fournisseur VALUES (2, 'RICARDO',             'Rue de Richard');
 INSERT INTO TP4_Livraison.Fournisseur VALUES (3, 'QC Transport',        'Rue du Québec');
 INSERT INTO TP4_Livraison.Fournisseur VALUES (4, 'Benjamin',            'Rue de Marseille Montréal B2B 2B2');
+INSERT INTO TP4_Livraison.Fournisseur VALUES (5, NULL,                  'Rue qui existe pas');
 
 --                                          id  categorie    fréquence  personnes   calories    prix    fournisseur
 INSERT INTO TP4_Livraison.PlanRepas VALUES (1, 'végétarien', 2,         2,          150,        22.00,  1);

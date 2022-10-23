@@ -33,8 +33,8 @@ WHERE categorie = 'cétogène'
 -- dossier (la valeur de nomfournisseur est NULL).
 
 SELECT COUNT(*)
-FROM Fournisseur
-WHERE nomFournisseur = NULL 
+FROM TP4_Livraison.Fournisseur f
+WHERE f.nomfournisseur is NULL 
 
 -- 4.5 Affichez les noms des fournisseurs (nomfournisseur) ayant fait des 
 -- livraisons de plans repas dont le montant est supérieur aux livraisons 
