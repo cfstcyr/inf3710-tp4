@@ -30,7 +30,8 @@ export class Data<T> {
     }
 
     fetch() {
-        this.data.next({ loading: true, data: [] });
+        this.data.next({ loading: true, data: this.data.value?.data ?? [] });
+
         const observable = this.apiService.get<T[]>(this.path);
         observable
             .pipe(
@@ -42,6 +43,7 @@ export class Data<T> {
             .subscribe((data) => {
                 this.data.next({ loading: false, data })
             });
+
         return observable;
     }
 }
