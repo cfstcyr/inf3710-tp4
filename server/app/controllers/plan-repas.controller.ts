@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { registry, singleton } from 'tsyringe';
-import { HttpException } from '../models/http-exception';
 import { PlanRepasService } from '../services/plan-repas.service';
 import { Types } from '../types';
 import { AbstractController } from './abstract.controller';

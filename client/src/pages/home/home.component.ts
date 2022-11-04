@@ -28,4 +28,8 @@ export class HomeComponent extends HelpersComponent implements OnInit {
   update(): void {
     this.dataService.update('planRepas');
   }
+
+  log(a: any) {
+    console.log(a);
+  }
 }
