@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent extends HelpersComponent implements OnInit {
-  protected status: Status | undefined;
   protected planRepas: ResponseData<PlanRepas>
 
   constructor(private apiService: ApiService, protected dataService: DataService, private router: Router) {
@@ -22,9 +21,6 @@ export class HomeComponent extends HelpersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.apiService.status()
-      .subscribe((res) => this.status = res);
-
     this.dataService.subscribe('planRepas', (planRepas) => {
       this.planRepas = planRepas;
     });
@@ -36,5 +32,9 @@ export class HomeComponent extends HelpersComponent implements OnInit {
 
   redirect(newPage: string): void {
     this.router.navigateByUrl(newPage);
+  }
+  
+  log(a: any) {
+    console.log(a);
   }
 }

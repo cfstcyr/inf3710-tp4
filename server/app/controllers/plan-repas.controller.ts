@@ -13,10 +13,14 @@ export class PlanRepasController extends AbstractController {
     }
 
     protected configRouter(router: Router): void {
-        router.get('/', async (req, res) => {
-            res.status(StatusCodes.OK).json(
-                await this.planRepasService.getPlanRepas(),
-            );
+        router.get('/', async (req, res, next) => {
+            try {
+                res.status(StatusCodes.OK).json(
+                    await this.planRepasService.getPlanRepas(),
+                );
+            } catch (e) {
+                next(e);
+            }
         });
 
         router.delete('/', async (req, res) => {

@@ -2,12 +2,6 @@
     <mat-card>
         <div [ngClass]="[Display.flex, Display.justify.between]">
             <h1 [ngClass]="[Display.margin[0]]">Home</h1>
-            <span [ngClass]="[Display.flex, Display.gap[2], Display.align.center]" *ngIf="status">
-                <mat-chip-list>
-                    <mat-chip>Server: <b>{{ status.server }}</b></mat-chip>
-                    <mat-chip>Database: <b>{{ status.db }}</b></mat-chip>
-                </mat-chip-list>
-            </span>
         </div>
     </mat-card>
     
@@ -15,7 +9,7 @@
     
     <mat-card>
         <app-loading [loading]="planRepas.loading">
-            <app-table [items]="planRepas.data"></app-table>
+            <app-table [items]="planRepas.data" [buttons]="[{ icon: 'delete', action: log }]"></app-table>
 
             <div [ngClass]="[Display.flex, Display.justify.end, Display.margin.top[3], Display.gap[3]]">
                 <button mat-flat-button color="primary" (click)="redirect('add-plan-repas')">Add</button>
