@@ -50,7 +50,9 @@ const modules = [
     MatChipsModule,
     MatSnackBarModule,
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatIconModule,
+    MatDialogModule
 ];
 
 @NgModule({

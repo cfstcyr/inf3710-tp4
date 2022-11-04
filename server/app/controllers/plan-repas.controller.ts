@@ -18,5 +18,11 @@ export class PlanRepasController extends AbstractController {
                 await this.planRepasService.getPlanRepas(),
             );
         });
+
+        router.delete('/', async (req, res) => {
+            res.status(StatusCodes.OK).json(
+                await this.planRepasService.deletePlanRepas(req.body.id),
+            );
+        });
     }
 }

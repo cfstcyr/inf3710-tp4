@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Supprimer le joueur virtuel</h2>
+<span>Voulez-vous supprimer le plan repas #
+    <span class="bold-primary">
+        {{plan.idPlanRepas}}
+    </span>
+     ?
+</span>
+
+<div id="buttons-container">
+    <button mat-flat-button color = "primary" (click)="deletePlanRepas()">
+        <mat-icon icon="trash-alt"></mat-icon>
+        Supprimer
+    </button>
+    <button mat flat button mat-button color = "primary" type="button" (click)="closeDialog()">
+        <mat-icon icon="ban"></mat-icon>
+        Annuler
+    </button> 
+</div>

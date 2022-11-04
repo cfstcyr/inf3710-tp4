@@ -18,6 +18,9 @@
             <app-table [items]="planRepas.data"></app-table>
 
             <div [ngClass]="[Display.flex, Display.justify.end, Display.margin.top[3], Display.gap[3]]">
+                <button mat-flat-button color="primary" (click)="redirect('add-plan-repas')">Add</button>
+                <button mat-flat-button color="primary" (click)="redirect('update-plan-repas')">Update</button>
+                <button mat-flat-button color="primary" (click)="redirect('delete-plan-repas')">Delete</button>
                 <button mat-flat-button color="primary" (click)="update()">Update</button>
             </div>
         </app-loading>

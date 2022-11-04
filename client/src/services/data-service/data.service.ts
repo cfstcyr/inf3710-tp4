@@ -18,7 +18,7 @@ const DATA_ITEMS: { [K in keyof DataItem]: string } = {
 export class DataService {
   private dataMap: Map<keyof DataItem, Data<unknown>>;
 
-  constructor(apiService: ApiService) {
+  constructor(private apiService: ApiService) {
     this.dataMap = new Map();
 
     for (const key of Object.keys(DATA_ITEMS) as (keyof DataItem)[]) {
@@ -42,5 +42,9 @@ export class DataService {
     for (const data of this.dataMap.values()) {
       data.fetch();
     }
+  }
+
+  deletePlanRepas(id: number): void {
+    this.apiService.delete('/plan-repas', {id: id})
   }
 }
