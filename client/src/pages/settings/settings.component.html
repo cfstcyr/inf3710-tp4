@@ -4,39 +4,6 @@
     </mat-card>
 
     <br>
-
-    <mat-card>
-        <h2>Query executors</h2>
-
-        <div *ngFor="let queryScript of queryScripts">
-            <div [ngClass]="[Display.flex, Display.justify.between, Display.align.center, Display.margin.bottom[2]]">
-                <h3 [ngClass]="[Display.margin[0]]">{{ queryScript.number }}</h3>
-                <!-- <button mat-flat-button color="primary" (click)="executeScript(queryScript.number)">Execute</button> -->
-            </div>
-            
-            <div *ngIf="queryScript.result" [ngStyle]="{ width: '100%', overflowX: 'auto' }">
-                <ng-container *ngIf="queryScript.result.data.length === 0">
-                    <p>No result</p>
-                </ng-container>
-
-                <mat-table [dataSource]="queryScript.result.data" [ngStyle]="{ width: '100%', display: 'table' }" *ngIf="queryScript.result.data.length > 0">
-                    <ng-container *ngFor="let col of queryScript.result.columns">
-                        <ng-container [matColumnDef]="col">
-                            <th mat-header-cell *matHeaderCellDef>{{ col }}</th>
-                            <td mat-cell *matCellDef="let element">{{element[col]}}</td>
-                        </ng-container>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="queryScript.result.columns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: queryScript.result.columns;"></tr>
-                </mat-table>
-            </div>
-
-            <textarea readonly [ngClass]="['code-block']" rows="8" [ngStyle]="{ lineHeight: '1.4em' }">{{ queryScript.query }}</textarea>
-        </div>
-    </mat-card>
-
-    <br>
     
     <mat-card>
         <div [ngClass]="[Display.flex, Display.justify.between, Display.align.start]">
@@ -45,7 +12,7 @@
                 <p>This will reset the database and recreate the tables using the file bellow.</p>
             </div>
             
-            <!-- <button mat-flat-button color="warn" (click)="reset()">Reset</button> -->
+            <button mat-flat-button color="warn" (click)="reset()">Reset</button>
         </div>
 
         <textarea readonly [ngClass]="['code-block']" rows="18">{{ resetScript }}</textarea>

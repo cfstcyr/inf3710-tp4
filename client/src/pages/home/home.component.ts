@@ -12,7 +12,6 @@ import { DefaultResponseData, ResponseData } from 'src/utils/data';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent extends HelpersComponent implements OnInit {
-  protected status: Status | undefined;
   protected planRepas: ResponseData<PlanRepas>
 
   constructor(private apiService: ApiService, protected dataService: DataService) {
@@ -21,9 +20,6 @@ export class HomeComponent extends HelpersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.apiService.status()
-      .subscribe((res) => this.status = res);
-
     this.dataService.subscribe('planRepas', (planRepas) => {
       this.planRepas = planRepas;
     });
