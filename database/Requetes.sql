@@ -13,11 +13,7 @@ WHERE plan.prix >= 20 AND plan.prix <= 40
 -- du fournisseur au nom de 'QC Transport'
 
 SELECT plan.idPlanRepas
-FROM TP4_Livraison.Client c
-FULL OUTER JOIN TP4_Livraison.Abonner abo
-    ON c.idClient = abo.idClient
-FULL OUTER JOIN TP4_Livraison.PlanRepas plan
-    on plan.idPlanRepas = abo.idPlan
+FROM TP4_Livraison.PlanRepas plan
 LEFT JOIN TP4_Livraison.Fournisseur fourn 
     ON plan.idFournisseur = fourn.idFournisseur
 WHERE fourn.nomFournisseur <> 'QC Transport'
@@ -42,10 +38,8 @@ WHERE f.nomfournisseur is NULL
 
 WITH totallivraisonsfournisseurs AS (
     SELECT fourn.idfournisseur, fourn.nomfournisseur, (CASE WHEN (SUM(plan.prix) IS NOT NULL) THEN SUM(plan.prix) ELSE 0 END) as totallivraisons 
-    FROM TP4_Livraison.Abonner abo
-    LEFT JOIN TP4_Livraison.PlanRepas plan
-        ON abo.idPlan = plan.idplanRepas
-	FULL OUTER JOIN TP4_Livraison.Fournisseur fourn
+    FROM TP4_Livraison.PlanRepas plan
+    FULL OUTER JOIN TP4_Livraison.Fournisseur fourn
         ON plan.idFournisseur = fourn.idFournisseur
 	GROUP BY fourn.idfournisseur
 )
@@ -58,14 +52,13 @@ WHERE totallivraisons > (
 	WHERE nomfournisseur = 'AB Transport'
 );
 
--- 4.6 Affichez les adresses (adressefournisseur) et le montant total des 
--- prix des livraisons de plans repas des fournisseurs ayant les deux plus 
--- larges montants de livraison sur la plateforme.
+-- 4.6  Affichez les noms des fournisseurs (nomfournisseur), les adresses 
+-- (adressefournisseur) et le montant total des prix des livraisons de 
+-- plans repas des fournisseurs ayant les deux plus larges montants de 
+-- livraison sur la plateforme.
 
-SELECT fourn.adresseFournisseur, SUM(plan.prix) as totallivraisons 
-FROM TP4_Livraison.Abonner abo
-LEFT JOIN TP4_Livraison.PlanRepas plan
-    ON abo.idPlan = plan.idplanRepas
+SELECT fourn.nomFournisseur, fourn.adresseFournisseur, SUM(plan.prix) as totallivraisons 
+FROM TP4_Livraison.PlanRepas plan
 LEFT JOIN TP4_Livraison.Fournisseur fourn
     ON plan.idFournisseur = fourn.idFournisseur
 GROUP BY fourn.idfournisseur
@@ -85,68 +78,33 @@ WITH plansNonCommandes AS (
 	)
 )
 
---SELECT * FROM plansNonCommandes
-
-SELECT COUNT(*)
-FROM TP4_Livraison.KitRepas kit
-FULL OUTER JOIN TP4_Livraison.PlanRepas plan
-	ON kit.idPlanRepas = plan.idPlanRepas
-WHERE kit.idplanrepas NOT IN (
-	SELECT idplanrepas 
-	FROM plansNonCommandes
-)
+SELECT COUNT(*) FROM plansNonCommandes
 
 -- 4.8 Affichez les numéros (numéroclient), les noms (nomclient) et les prénoms 
--- (prénomclient) des clients dont le prénom ne commence pas par une voyelle et 
--- qu’ils habitent à la même adresse que le fournisseur 'Benjamin'. Ordonnez ces 
+-- (prénomclient) des clients dont le prénom ne commence pas par une voyelle 
+-- (en majuscule ou en minuscule) et qu’ils habitent (villeclient) à la même
+-- adresse (adressefournisseur) que le fournisseur 'Benjamin'. Ordonnez ces 
 -- clients alphabétiquement selon le nom.
-	
+
 SELECT idclient, nomclient, prenomclient
 FROM TP4_Livraison.client
-WHERE CONCAT(rueclient, ' ', villeclient, ' ', codepostalclient) IN (
+WHERE (
     SELECT adressefournisseur
     FROM TP4_Livraison.Fournisseur
     WHERE nomFournisseur = 'Benjamin'
-)
+) LIKE CONCAT('%', villeclient, '%')
 AND prenomclient ~ '^[^aeiouyAEIOUY].*$'
 ORDER BY LOWER(nomclient)
 
 -- 4.9 Affichez le pays des ingrédients (paysingrédient) et le nombre d’ingrédients 
 -- par pays dont le paysingrédient ne contient pas la lettre g à la troisième position 
--- de la fin; triés par ordre décroissant selon le nom de l’ingrédient (nomingrédient). 
+-- de la fin; triés par ordre décroissant selon le pays de l’ingrédient (paysingrédient) 
 
--- WITH ingredientstries AS (
---     SELECT *
---     FROM TP4_Livraison.Ingredient
---     WHERE paysIngredient NOT LIKE '%g__'
---     GROUP BY nomIngredient
---     ORDER BY LOWER(nomIngredient) DESC
--- )
-
--- SELECT paysingredient, COUNT(idingredient) as nbringredientpays
--- FROM TP4_Livraison.Ingredient
--- UNION 
--- SELECT * FROM ingredientstries
--- GROUP BY paysingredient
-
-WITH ingredientstries AS (
-    SELECT *
-    FROM TP4_Livraison.Ingredient
-    WHERE paysIngredient NOT LIKE '%g__'
-    GROUP BY nomIngredient, idingredient
-    ORDER BY LOWER(nomIngredient) DESC
-)
--- SELECT * from ingredientstries
-
-SELECT paysingredient, COUNT(*) as nbringredientpays
-FROM (
-	SELECT *
-    FROM TP4_Livraison.Ingredient
-    WHERE paysIngredient NOT LIKE '%g__'
-    GROUP BY nomIngredient, idingredient
-    ORDER BY LOWER(nomIngredient) DESC
-) as Ingredientstries
-GROUP BY paysingredient
+SELECT paysingredient, COUNT(*) as nbIngredients
+FROM TP4_Livraison.Ingredient
+WHERE paysIngredient NOT LIKE '%g__'
+GROUP BY paysIngredient
+ORDER BY LOWER(paysIngredient) DESC
 
 -- 4.10 Créez une vue 'V_fournisseur' contenant la catégorie du plan repas 'V_catégorie', 
 -- l’adresse du fournisseur 'V_adresse' et le total des prix de tous les plans repas 

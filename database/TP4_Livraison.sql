@@ -56,16 +56,39 @@ CREATE TABLE IF NOT EXISTS TP4_Livraison.Abonner (
     FOREIGN KEY (idPlan) REFERENCES TP4_Livraison.PlanRepas ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- CREATE TABLE IF NOT EXISTS TP4_Livraison.Famille (
---     PRIMARY KEY (idPlanRepas)
--- );
+CREATE TABLE IF NOT EXISTS TP4_Livraison.Famille (
+    idPlanRepas SMALLINT NOT NULL PRIMARY KEY,
 
--- CREATE TABLE IF NOT EXISTS TP4_Livraison.Vegetarien (
---     idPlanRepas SMALLINT NOT NULL PRIMARY KEY,
---     typeDeRepas VARCHAR(255) NOT NULL,
+    FOREIGN KEY (idPlanRepas) REFERENCES TP4_Livraison.PlanRepas ON UPDATE CASCADE ON DELETE CASCADE
+);
 
---     FOREIGN KEY (idPlanRepas) REFERENCES PlanRepas ON UPDATE CASCADE ON DELETE CASCADE,
--- );
+CREATE TABLE IF NOT EXISTS TP4_Livraison.Rapide (
+    idPlanRepas SMALLINT NOT NULL PRIMARY KEY,
+    tempsDePreparation INT NOT NULL,
+
+    FOREIGN KEY (idPlanRepas) REFERENCES TP4_Livraison.Famille ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS TP4_Livraison.Rapide (
+    idPlanRepas SMALLINT NOT NULL PRIMARY KEY,
+    nbIngredients INT NOT NULL,
+
+    FOREIGN KEY (idPlanRepas) REFERENCES TP4_Livraison.Famille ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS TP4_Livraison.Vegetarien (
+    idPlanRepas SMALLINT NOT NULL PRIMARY KEY,
+    typeDeRepas VARCHAR(255) NOT NULL,
+
+    FOREIGN KEY (idPlanRepas) REFERENCES TP4_Livraison.PlanRepas ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS TP4_Livraison.Pescetarien (
+    idPlanRepas SMALLINT NOT NULL PRIMARY KEY,
+    typePoisson VARCHAR(255) NOT NULL,
+
+    FOREIGN KEY (idPlanRepas) REFERENCES TP4_Livraison.PlanRepas ON UPDATE CASCADE ON DELETE CASCADE
+);
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.KitRepas (
     idKitRepas SMALLINT NOT NULL PRIMARY KEY,
@@ -98,15 +121,16 @@ CREATE TABLE IF NOT EXISTS TP4_Livraison.Contenir (
     FOREIGN KEY (idIngredient) REFERENCES TP4_Livraison.Ingredient ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- CREATE TABLE IF NOT EXISTS TP4_Livraison.Etape (
---     idKitRepas SMALLINT NOT NULL PRIMARY KEY,
---     descriptionEtape VARCHAR(255) NOT NULL,
---     dureeEtape SMALLINT NOT NULL,
---     idKitRepasPartieDe SMALLINT,
+CREATE TABLE IF NOT EXISTS TP4_Livraison.Etape (
+    idKitRepas SMALLINT NOT NULL,
+    numeroEtape VARCHAR(255),
+    descriptionEtape VARCHAR(255) NOT NULL,
+    dureeEtape SMALLINT NOT NULL,
+    idKitRepasPartieDe SMALLINT,
     
---     FOREIGN KEY (idKitRepas) REFERENCES KitRepas ON UPDATE CASCADE ON DELETE CASCADE,
--- )
-
+    PRIMARY KEY (idKitRepas, numeroEtape),
+    FOREIGN KEY (idKitRepas) REFERENCES KitRepas ON UPDATE CASCADE ON DELETE CASCADE
+)
 
 
 -- POPULATE ==================================================
