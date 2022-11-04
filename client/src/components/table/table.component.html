@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="items" [ngStyle]="{ width: '100%' }">
+<table mat-table [dataSource]="getItems()" [ngStyle]="{ width: '100%' }">
     <ng-container *ngFor="let col of getColumns()">
         <ng-component *ngIf="col === ACTION_COLUMN">
             <ng-container [matColumnDef]="col">
@@ -28,3 +28,6 @@
     <tr mat-header-row *matHeaderRowDef="getColumns()"></tr>
     <tr mat-row *matRowDef="let row; columns: getColumns();"></tr>
 </table>
+<ng-container *ngIf="getUpdated()">
+    <p [ngClass]="[Typography.h6, Colors.faded, Display.margin.top[1]]"><span [ngClass]="[Typography.weight.semibold]">Mise à jour :</span> {{ getUpdated() }}</p>
+</ng-container>

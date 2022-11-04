@@ -172,6 +172,7 @@ export const Typography = {
 export const Colors = {
     white: 'c--white',
     black: 'c--black',
+    faded: 'c--faded',
 };
 
 export const Screens = {

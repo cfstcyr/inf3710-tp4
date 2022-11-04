@@ -5,9 +5,10 @@ export interface ResponseData<T> {
     loading: boolean;
     error?: string;
     data: T[];
+    updated: Date;
 }
 
-export const DefaultResponseData = <T>(loading = false): ResponseData<T> => ({ loading, data: [] });
+export const DefaultResponseData = <T>(loading = false): ResponseData<T> => ({ loading, data: [], updated: new Date() });
 
 export class Data<T> {
     private path: string;
@@ -30,18 +31,18 @@ export class Data<T> {
     }
 
     fetch() {
-        this.data.next({ loading: true, data: this.data.value?.data ?? [] });
+        this.data.next({ loading: true, data: this.data.value?.data ?? [], updated: this.data.value?.updated ?? new Date() });
 
         const observable = this.apiService.get<T[]>(this.path);
         observable
             .pipe(
             catchError((error: Error) => {
-                this.data.next({ loading: false, data: [], error: String(error) });
+                this.data.next({ loading: false, data: [], error: String(error), updated: new Date() });
                 return throwError(() => error);
             })
             )
             .subscribe((data) => {
-                this.data.next({ loading: false, data })
+                this.data.next({ loading: false, data, updated: new Date() })
             });
 
         return observable;

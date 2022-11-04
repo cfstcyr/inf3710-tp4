@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ResponseData } from 'src/utils/data';
 import { HelpersComponent } from '../helpers-component/helpers.component';
 
 interface TableButtonBase {
@@ -25,7 +26,7 @@ export type TableButton = TableButtonText | TableButtonIcon;
 })
 export class TableComponent extends HelpersComponent {
   protected ACTION_COLUMN = '&&ACTION-COLUMN&&';
-  @Input() items: object[];
+  @Input() items: object[] | ResponseData<object>;
   @Input() buttons: TableButton[];
 
   constructor() {
@@ -34,12 +35,20 @@ export class TableComponent extends HelpersComponent {
     this.buttons = [];
   }
 
+  protected getItems(): object[] {
+    return Array.isArray(this.items) ? this.items : this.items.data;
+  }
+
   protected getColumns(): string[] {
-    const cols = this.items.length > 0 ? Object.keys(this.items[0]) : [];
+    const cols = this.getItems().length > 0 ? Object.keys(this.getItems()[0]) : [];
 
     if (this.buttons.length > 0) cols.push(this.ACTION_COLUMN);
 
     return cols;
+  }
+
+  protected getUpdated(): string | undefined {
+    return Array.isArray(this.items) ? undefined : String(this.items.updated);
   }
 
   protected isDisabled(button: TableButton, value: object): boolean {
