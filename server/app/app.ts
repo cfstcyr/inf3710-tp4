@@ -33,7 +33,7 @@ export class Application {
 
     public bindRoutes(): void {
         for (const controller of this.controllers) {
-            this.app.use(controller.path, controller.router);
+            controller.use(this.app);
         }
 
         this.errorHandeling();

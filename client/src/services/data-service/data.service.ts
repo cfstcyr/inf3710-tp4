@@ -1,60 +1,46 @@
 import { Injectable } from '@angular/core';
-import { Client } from 'common/tables/client';
-import { Script } from 'common/communication/script';
-import { QueryScript } from 'common/communication/query-script';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { PlanRepas } from 'common/tables/plan-repas';
+import { Subscription } from 'rxjs';
 import { ApiService } from '../api-service/api.service';
+import { Data, ResponseData } from 'src/utils/data';
+
+interface DataItem {
+  planRepas: PlanRepas;
+}
+
+const DATA_ITEMS: { [K in keyof DataItem]: string } = {
+  planRepas: '/plan-repas',
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  private clients: BehaviorSubject<Client[]>;
-  private queryScripts: BehaviorSubject<QueryScript[]>;
+  private dataMap: Map<keyof DataItem, Data<unknown>>;
 
-  constructor(private apiService: ApiService) {
-    this.clients = new BehaviorSubject<Client[]>([]);
-    this.queryScripts = new BehaviorSubject<QueryScript[]>([]);
+  constructor(apiService: ApiService) {
+    this.dataMap = new Map();
 
-    this.fetchAll();
+    for (const key of Object.keys(DATA_ITEMS) as (keyof DataItem)[]) {
+      this.dataMap.set(key, apiService.createData(DATA_ITEMS[key]));
+    }
   }
 
-  reset(): Observable<null> {
-    const obs = this.apiService.post<null>('/db/reset', null);
-    obs.subscribe(() => this.fetchAll());
-    return obs;
+  subscribe<T extends keyof DataItem>(item: T, next: (value: ResponseData<DataItem[T]>) => void): Subscription {
+    return (this.dataMap.get(item)! as Data<DataItem[T]>).subscribe(next);
   }
 
-  getResetScript(): Observable<Script> {
-    return this.apiService.get('/db/reset/script');
+  update(item: keyof DataItem | (keyof DataItem)[]): void {
+    const items = typeof item === 'string' ? [item] : item;
+
+    for (const itemKey of items) {
+      this.dataMap.get(itemKey)!.fetch();
+    }
   }
 
-  executeQueryScript(number: string): Observable<object[]> {
-    return this.apiService.post('/db/script', { number });
-  }
-
-  subscribeClients(next: (value: Client[]) => void) {
-    return this.clients.subscribe(next);
-  }
-
-  subscribeQueryScripts(next: (value: QueryScript[]) => void) {
-    return this.queryScripts.subscribe(next);
-  }
-
-  fetchAll() {
-    this.fetchClients();
-    this.fetchQueryScripts();
-  }
-
-  fetchClients(): Observable<Client[]> {
-    const observable = this.apiService.get<Client[]>('/client');
-    observable.subscribe((clients) => this.clients.next(clients));
-    return observable;
-  }
-
-  fetchQueryScripts(): Observable<QueryScript[]> {
-    const observable = this.apiService.get<QueryScript[]>('/db/script');
-    observable.subscribe((queryScripts) => this.queryScripts.next(queryScripts));
-    return observable;
+  updateAll(): void {
+    for (const data of this.dataMap.values()) {
+      data.fetch();
+    }
   }
 }

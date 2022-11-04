@@ -1,0 +1,7 @@
+<ng-container *ngIf="loading">
+    <mat-spinner></mat-spinner>
+</ng-container>
+
+<ng-container *ngIf="!loading">
+    <ng-content></ng-content>
+</ng-container>

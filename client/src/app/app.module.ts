@@ -9,6 +9,8 @@ import { HeaderComponent } from '../components/header/header.component';
 import { AboutComponent } from 'src/pages/about/about.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SettingsComponent } from '../pages/settings/settings.component';
+import { TableComponent } from 'src/components/table/table.component';
+import { LoadingComponent } from '../components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { SettingsComponent } from '../pages/settings/settings.component';
     HomeComponent,
     HeaderComponent,
     AboutComponent,
-    SettingsComponent
+    SettingsComponent,
+    TableComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

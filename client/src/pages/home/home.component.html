@@ -14,21 +14,12 @@
     <br>
     
     <mat-card>
-        <table mat-table [dataSource]="clients" [ngStyle]="{ width: '100%' }">
-            <ng-container *ngFor="let col of clientsColumns">
-                <ng-container [matColumnDef]="col">
-                    <th mat-header-cell *matHeaderCellDef>{{ col }}</th>
-                    <td mat-cell *matCellDef="let client">{{client[col]}}</td>
-                </ng-container>
-            </ng-container>
-            
-        
-            <tr mat-header-row *matHeaderRowDef="clientsColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: clientsColumns;"></tr>
-        </table>
+        <app-loading [loading]="planRepas.loading">
+            <app-table [items]="planRepas.data"></app-table>
 
-        <div [ngClass]="[Display.flex, Display.justify.end, Display.margin.top[3], Display.gap[3]]">
-            <button mat-flat-button color="primary" (click)="dataService.fetchClients()">Update</button>
-        </div>
+            <div [ngClass]="[Display.flex, Display.justify.end, Display.margin.top[3], Display.gap[3]]">
+                <button mat-flat-button color="primary" (click)="update()">Update</button>
+            </div>
+        </app-loading>
     </mat-card>    
 </div>

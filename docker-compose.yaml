@@ -61,6 +61,7 @@ services:
       PGADMIN_CONFIG_SERVER_MODE: 'False'
     volumes:
       - pgadmin:/var/lib/pgadmin
+      - ./database:/home/scripts
     ports:
       - "${PGADMIN_PORT:-5050}:80"
     restart: unless-stopped
