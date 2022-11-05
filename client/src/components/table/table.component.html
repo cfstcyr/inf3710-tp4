@@ -29,5 +29,7 @@
     <tr mat-row *matRowDef="let row; columns: getColumns();"></tr>
 </table>
 <ng-container *ngIf="getUpdated()">
-    <p [ngClass]="[Typography.h6, Colors.faded, Display.margin.top[1]]"><span [ngClass]="[Typography.weight.semibold]">Mise à jour :</span> {{ getUpdated() }}</p>
+    <p [ngClass]="[Typography.h6, Colors.faded, Display.margin.top[1]]">
+        <span [ngClass]="[Typography.weight.semibold]">Mise à jour :</span> {{ getUpdated() }}
+    </p>
 </ng-container>

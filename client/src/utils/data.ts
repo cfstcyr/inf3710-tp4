@@ -31,7 +31,7 @@ export class Data<T> {
     }
 
     fetch() {
-        this.data.next({ loading: true, data: this.data.value?.data ?? [], updated: this.data.value?.updated ?? new Date() });
+        this.nextLoading();
 
         const observable = this.apiService.get<T[]>(this.path);
         observable
@@ -46,5 +46,16 @@ export class Data<T> {
             });
 
         return observable;
+    }
+
+    delete(id: number) {
+        this.nextLoading();
+
+        const observable = this.apiService.delete<null>(this.path, { id });
+        
+    }
+
+    private nextLoading() {
+        this.data.next({ loading: true, data: this.data.value?.data ?? [], updated: this.data.value?.updated ?? new Date() });
     }
 }
