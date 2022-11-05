@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ResponseData } from 'src/utils/data';
+import { CollectionData } from 'src/utils/data';
 import { HelpersComponent } from '../helpers-component/helpers.component';
 
 interface TableButtonBase {
@@ -26,7 +26,7 @@ export type TableButton = TableButtonText | TableButtonIcon;
 })
 export class TableComponent extends HelpersComponent {
   protected ACTION_COLUMN = '&&ACTION-COLUMN&&';
-  @Input() items: object[] | ResponseData<object>;
+  @Input() items: object[] | CollectionData<object>;
   @Input() buttons: TableButton[];
 
   constructor() {

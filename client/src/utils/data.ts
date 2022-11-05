@@ -1,27 +1,27 @@
 import { BehaviorSubject, catchError, Subscription, throwError } from "rxjs";
 import { ApiService } from "src/services/api-service/api.service";
 
-export interface ResponseData<T> {
+export interface CollectionData<T> {
     loading: boolean;
     error?: string;
     data: T[];
     updated: Date;
 }
 
-export const DefaultResponseData = <T>(loading = false): ResponseData<T> => ({ loading, data: [], updated: new Date() });
+export const DefaultResponseData = <T>(loading = false): CollectionData<T> => ({ loading, data: [], updated: new Date() });
 
-export class Data<T> {
+export class Collection<T> {
     private path: string;
-    private data: BehaviorSubject<ResponseData<T> | undefined>;
+    private data: BehaviorSubject<CollectionData<T> | undefined>;
     private apiService: ApiService;
 
     constructor (path: string, apiService: ApiService) {
         this.path = path;
-        this.data = new BehaviorSubject<ResponseData<T> | undefined>(undefined);
+        this.data = new BehaviorSubject<CollectionData<T> | undefined>(undefined);
         this.apiService = apiService;
     }
 
-    subscribe(next: (value: ResponseData<T>) => void): Subscription {
+    subscribe(next: (value: CollectionData<T>) => void): Subscription {
         if (this.data.value === undefined) {
             this.fetch();
         }

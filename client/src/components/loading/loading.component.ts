@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ResponseData } from 'src/utils/data';
+import { CollectionData } from 'src/utils/data';
 
 @Component({
   selector: 'app-loading',
@@ -7,7 +7,7 @@ import { ResponseData } from 'src/utils/data';
   styleUrls: ['./loading.component.scss']
 })
 export class LoadingComponent {
-  @Input() loading: boolean | ResponseData<unknown> = false;
+  @Input() loading: boolean | CollectionData<unknown> = false;
 
   isLoading(): boolean {
     return typeof this.loading === 'boolean' 

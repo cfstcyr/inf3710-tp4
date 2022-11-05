@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { s } from 'src/utils/url';
 import { Status } from 'common/communication/status';
-import { Data } from 'src/utils/data';
+import { Collection } from 'src/utils/data';
 
 interface Options {
   headers?: HttpHeaders | {
@@ -27,8 +27,8 @@ export class ApiService {
     return this.http.get<Status>(s('/'));
   }
 
-  createData<T>(path: string): Data<T> {
-    return new Data<T>(path, this);
+  createData<T>(path: string): Collection<T> {
+    return new Collection<T>(path, this);
   }
 
   get<T>(path: string, options: Options = {}): Observable<T> {

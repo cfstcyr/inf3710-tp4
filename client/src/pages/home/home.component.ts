@@ -4,7 +4,7 @@ import { DataService } from 'src/services/data-service/data.service';
 import { HelpersComponent } from 'src/components/helpers-component/helpers.component';
 import { Status } from 'common/communication/status';
 import { PlanRepas } from 'common/tables/plan-repas';
-import { DefaultResponseData, ResponseData } from 'src/utils/data';
+import { DefaultResponseData, CollectionData } from 'src/utils/data';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent extends HelpersComponent implements OnInit {
+export class HomeComponCollectionDataHelpersComponent implements OnInit {
   protected planRepas: ResponseData<PlanRepas>
 
   constructor(private apiService: ApiService, protected dataService: DataService, private router: Router) {
