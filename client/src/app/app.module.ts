@@ -11,6 +11,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { SettingsComponent } from '../pages/settings/settings.component';
 import { TableComponent } from 'src/components/table/table.component';
 import { LoadingComponent } from '../components/loading/loading.component';
+import { AddPlanRepasComponent } from '../pages/add-plan-repas/add-plan-repas.component';
+import { UpdatePlanRepasComponent } from '../pages/update-plan-repas/update-plan-repas.component';
+import { DeletePlanRepasComponent } from '../pages/delete-plan-repas/delete-plan-repas.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { LoadingComponent } from '../components/loading/loading.component';
     AboutComponent,
     SettingsComponent,
     TableComponent,
-    LoadingComponent
+    LoadingComponent,
+    AddPlanRepasComponent,
+    UpdatePlanRepasComponent,
+    DeletePlanRepasComponent
   ],
   imports: [
     BrowserModule,

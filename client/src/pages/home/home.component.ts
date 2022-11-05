@@ -5,6 +5,7 @@ import { HelpersComponent } from 'src/components/helpers-component/helpers.compo
 import { Status } from 'common/communication/status';
 import { PlanRepas } from 'common/tables/plan-repas';
 import { DefaultResponseData, ResponseData } from 'src/utils/data';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ import { DefaultResponseData, ResponseData } from 'src/utils/data';
 export class HomeComponent extends HelpersComponent implements OnInit {
   protected planRepas: ResponseData<PlanRepas>
 
-  constructor(private apiService: ApiService, protected dataService: DataService) {
+  constructor(private apiService: ApiService, protected dataService: DataService, private router: Router) {
     super();
     this.planRepas = DefaultResponseData();
   }
@@ -29,6 +30,10 @@ export class HomeComponent extends HelpersComponent implements OnInit {
     this.dataService.update('planRepas');
   }
 
+  redirect(newPage: string): void {
+    this.router.navigateByUrl(newPage);
+  }
+  
   log(a: any) {
     console.log(a);
   }
