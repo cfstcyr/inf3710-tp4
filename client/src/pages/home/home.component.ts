@@ -55,12 +55,4 @@ export class HomeComponent extends HelpersComponent implements OnInit {
   openAddScreen() {
     this.dialog.open(AddPlanRepasComponent);
   }
-
-  redirect(newPage: string): void {
-    this.router.navigateByUrl(newPage);
-  }
-
-  log(a: any) {
-    console.log(a);
-  }
 }
