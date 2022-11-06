@@ -44,7 +44,8 @@ export class DataService {
     }
   }
 
-  deletePlanRepas(id: number): void {
-    this.apiService.delete('/plan-repas', {id: id})
+  async deletePlanRepas(id: number): Promise<void> {
+    await this.apiService.delete('/plan-repas', {id: id}).subscribe();
+    this.update('planRepas');
   }
 }

@@ -14,24 +14,24 @@ export class PlanRepasService {
 
     public async deletePlanRepas(id: string): Promise<void> {
         await this.databaseService.query(
-            `DELETE * FROM TP4_Livraison.PlanRepas
-            WHERE idPlanRepas = ${id};`,
+            `DELETE FROM TP4_Livraison.PlanRepas
+            WHERE idplanrepas = ${id};`,
         );
     }
 
     public async insertPlanRepas(
-        plan: Omit<PlanRepas, 'idPlanRepas'>,
+        plan: Omit<PlanRepas, 'idplanrepas'>,
     ): Promise<void> {
         await this.databaseService.query(
-            `INSERT INTO TP4_Livraison.PlanRepas VALUES(${plan.categorie}, ${plan.frequence}, ${plan.nbrPersonne}, ${plan.nbrCalorie}, ${plan.prix}, ${plan.idFournisseur});`,
+            `INSERT INTO TP4_Livraison.PlanRepas VALUES(${plan.categorie}, ${plan.frequence}, ${plan.nbrpersonne}, ${plan.nbrcalorie}, ${plan.prix}, ${plan.idfournisseur});`,
         );
     }
 
     public async updatePlanRepas(plan: PlanRepas): Promise<void> {
         await this.databaseService.query(
             `UPDATE TP4_Livraison.PlanRepas 
-            SET categorie = ${plan.categorie}, frequence = ${plan.frequence}, nbrPersonne = ${plan.nbrPersonne}, nbrCalorie = ${plan.nbrCalorie}, prix = ${plan.prix}, idFournisseur = ${plan.idFournisseur})
-            WHERE idPlanRepas = ${plan.idPlanRepas};`,
+            SET categorie = ${plan.categorie}, frequence = ${plan.frequence}, nbrpersonne = ${plan.nbrpersonne}, nbrcalorie = ${plan.nbrcalorie}, prix = ${plan.prix}, idfournisseur = ${plan.idfournisseur})
+            WHERE idplanrepas = ${plan.idplanrepas};`,
         );
     }
 }

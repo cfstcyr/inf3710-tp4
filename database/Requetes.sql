@@ -6,22 +6,22 @@ FROM TP4_Livraison.Client c
 INNER JOIN TP4_Livraison.Abonner abo 
     ON c.idClient = abo.idClient
 INNER JOIN TP4_Livraison.PlanRepas plan 
-    ON abo.idPlan = plan.idPlanRepas
+    ON abo.idPlan = plan.idplanrepas
 WHERE plan.prix >= 20 AND plan.prix <= 40
 
 -- 4.2 Afficher les numéros des plans repas (numéroplan) qui ne proviennent pas  
 -- du fournisseur au nom de 'QC Transport'
 
-SELECT plan.idPlanRepas
+SELECT plan.idplanrepas
 FROM TP4_Livraison.PlanRepas plan
 LEFT JOIN TP4_Livraison.Fournisseur fourn 
-    ON plan.idFournisseur = fourn.idFournisseur
+    ON plan.idfournisseur = fourn.idfournisseur
 WHERE fourn.nomFournisseur <> 'QC Transport'
 
 -- 4.3 Affichez la liste des numéros des plans Famille (numéroplan) dont la 
 -- catégorie du plan repas correspond à 'cétogène'.
 
-SELECT DISTINCT idPlanRepas
+SELECT DISTINCT idplanrepas
 FROM Famille   -- TODO vérifier s'il faudrait pas faire un join sur planrepas
 WHERE categorie = 'cétogène'
 
@@ -40,7 +40,7 @@ WITH totallivraisonsfournisseurs AS (
     SELECT fourn.idfournisseur, fourn.nomfournisseur, (CASE WHEN (SUM(plan.prix) IS NOT NULL) THEN SUM(plan.prix) ELSE 0 END) as totallivraisons 
     FROM TP4_Livraison.PlanRepas plan
     FULL OUTER JOIN TP4_Livraison.Fournisseur fourn
-        ON plan.idFournisseur = fourn.idFournisseur
+        ON plan.idfournisseur = fourn.idfournisseur
 	GROUP BY fourn.idfournisseur
 )
 
@@ -60,7 +60,7 @@ WHERE totallivraisons > (
 SELECT fourn.nomFournisseur, fourn.adresseFournisseur, SUM(plan.prix) as totallivraisons 
 FROM TP4_Livraison.PlanRepas plan
 LEFT JOIN TP4_Livraison.Fournisseur fourn
-    ON plan.idFournisseur = fourn.idFournisseur
+    ON plan.idfournisseur = fourn.idfournisseur
 GROUP BY fourn.idfournisseur
 ORDER BY totalLivraisons DESC
 LIMIT 2
@@ -118,7 +118,7 @@ WITH v_fournisseur AS (
     SELECT plan.categorie as v_categorie, fourn.adresseFournisseur as v_adresse, SUM(plan.prix) as v_tot
     FROM TP4_Livraison.Fournisseur fourn
     FULL OUTER JOIN TP4_Livraison.PlanRepas plan
-        ON fourn.idFournisseur = plan.idfournisseur
+        ON fourn.idfournisseur = plan.idfournisseur
     WHERE plan.categorie LIKE '%e%'
     AND plan.categorie LIKE '%o__'
 	GROUP BY plan.categorie, fourn.adresseFournisseur

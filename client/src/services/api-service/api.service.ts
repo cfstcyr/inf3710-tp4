@@ -44,7 +44,6 @@ export class ApiService {
   }
 
   delete<T>(path: string, body: any | null) {
-    console.log(body);
     return this.http.delete<T>(s(path), {body: {...body}});
   }
 }

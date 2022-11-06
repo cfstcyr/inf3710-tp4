@@ -6,6 +6,9 @@ import { Status } from 'common/communication/status';
 import { PlanRepas } from 'common/tables/plan-repas';
 import { DefaultResponseData, ResponseData } from 'src/utils/data';
 import { Router } from '@angular/router';
+import { DeletePlanRepasComponent } from '../delete-plan-repas/delete-plan-repas.component';
+import { UpdatePlanRepasComponent } from '../update-plan-repas/update-plan-repas.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
@@ -14,8 +17,14 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent extends HelpersComponent implements OnInit {
   protected planRepas: ResponseData<PlanRepas>
+  public that = this
 
-  constructor(private apiService: ApiService, protected dataService: DataService, private router: Router) {
+  constructor(
+    public dialog: MatDialog, 
+    private apiService: ApiService, 
+    protected dataService: DataService, 
+    private router: Router
+  ) {
     super();
     this.planRepas = DefaultResponseData();
   }
@@ -25,15 +34,27 @@ export class HomeComponent extends HelpersComponent implements OnInit {
       this.planRepas = planRepas;
     });
   }
+  
+  deletePlanRepas(plan: PlanRepas): void {
+    this.dialog.open(DeletePlanRepasComponent, {
+      data: plan
+    });
+  }
 
   update(): void {
     this.dataService.update('planRepas');
   }
 
+  updatePlanRepas(plan: PlanRepas): void {
+    this.dialog.open(UpdatePlanRepasComponent, {
+      data: plan
+    });
+  }
+
   redirect(newPage: string): void {
     this.router.navigateByUrl(newPage);
   }
-  
+
   log(a: any) {
     console.log(a);
   }
