@@ -10,19 +10,16 @@ import { HelpersComponent } from '../helpers-component/helpers.component';
   templateUrl: './table-wrapper.component.html',
   styleUrls: ['./table-wrapper.component.scss']
 })
-export class TableWrapperComponent<K extends keyof TableItem> extends HelpersComponent implements OnInit, OnDestroy {
+export class TableWrapperComponent<K extends keyof TableItem> extends HelpersComponent implements OnInit {
   @Input() table?: K;
   protected collectionData: CollectionData<TableItem[K]>;
   protected that = this;
-
-  protected $destroy: Subject<boolean>;
 
   constructor(
     private readonly dataService: DataService,
   ) {
     super();
     this.collectionData = DefaultCollectionData();
-    this.$destroy = new Subject();
   }
 
   ngOnInit(): void {
@@ -30,12 +27,7 @@ export class TableWrapperComponent<K extends keyof TableItem> extends HelpersCom
     this.dataService.subscribe(this.table, (value) => {
       console.log(value);
       this.collectionData = value;
-    }, this.$destroy);
-  }
-
-  ngOnDestroy(): void {
-    this.$destroy.next(true);
-    this.$destroy.complete();
+    });
   }
 
   update() {
