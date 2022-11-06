@@ -9,7 +9,7 @@
     
     <mat-card>
         <app-loading [loading]="planRepas.loading">
-            <app-table [items]="planRepas.data" [buttons]="[{ icon: 'delete', action: deletePlanRepas.bind(that) }, { icon: 'edit', action: updatePlanRepas }]"></app-table>
+            <app-table [items]="planRepas.data" [buttons]="[{ icon: 'delete', action: openDeleteScreen.bind(that) }, { icon: 'edit', action: openUpdateScreen.bind(that) }]"></app-table>
 
             <div [ngClass]="[Display.flex, Display.justify.end, Display.margin.top[3], Display.gap[3]]">
                 <button mat-flat-button color="primary" (click)="openAddScreen()">Add</button>

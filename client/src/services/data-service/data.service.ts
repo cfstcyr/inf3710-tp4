@@ -53,4 +53,9 @@ export class DataService {
     await this.apiService.post('/plan-repas', {plan: plan}).subscribe();
     this.update('planRepas');
   }
+
+  async updatePlanRepas(plan: PlanRepas): Promise<void> {
+    await this.apiService.patch('/plan-repas', {plan: plan}).subscribe();
+    this.update('planRepas');
+  }
 }
