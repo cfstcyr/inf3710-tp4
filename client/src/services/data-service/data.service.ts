@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PlanRepas } from 'common/tables/plan-repas';
-import { firstValueFrom, Subject, Subscription } from 'rxjs';
+import { firstValueFrom, Observable, Subject, Subscription, takeUntil } from 'rxjs';
 import { ApiService } from '../api-service/api.service';
 import { Collection, CollectionData } from 'src/utils/data';
 import { TableItem } from 'common/tables';
@@ -24,8 +24,12 @@ export class DataService {
     }
   }
 
-  subscribe<K extends keyof TableItem>(item: K, next: (value: CollectionData<TableItem[K]>) => void): Subscription {
-    return this.dataItems[item].subscribe(next);
+  subscribe<K extends keyof TableItem>(item: K, next: (value: CollectionData<TableItem[K]>) => void, $destroy?: Subject<boolean>): Subscription {
+    let o: Observable<Collection<TableItem[K]>> = this.dataItems[item] as any;
+
+    if ($destroy) o.pipe(takeUntil($destroy));
+
+    return o.subscribe(next);
   }
 
   async update<K extends keyof TableItem>(item: K | K[]): Promise<void> {

@@ -14,6 +14,7 @@ import { LoadingComponent } from '../components/loading/loading.component';
 import { AddPlanRepasComponent } from '../pages/add-plan-repas/add-plan-repas.component';
 import { UpdatePlanRepasComponent } from '../pages/update-plan-repas/update-plan-repas.component';
 import { DeletePlanRepasComponent } from '../pages/delete-plan-repas/delete-plan-repas.component';
+import { TableWrapperComponent } from 'src/components/table-wrapper/table-wrapper.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { DeletePlanRepasComponent } from '../pages/delete-plan-repas/delete-plan
     AddPlanRepasComponent,
     UpdatePlanRepasComponent,
     DeletePlanRepasComponent,
+    TableWrapperComponent,
   ],
   imports: [
     BrowserModule,

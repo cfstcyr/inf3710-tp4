@@ -1,0 +1,20 @@
+<ng-container>
+    <app-table 
+        [items]="collectionData" 
+        [buttons]="[
+            {
+                icon: 'delete',
+                action: openDeleteScreen.bind(that)
+            },
+            {
+                icon: 'edit',
+                action: openUpdateScreen.bind(that)
+            }
+        ]"
+    ></app-table>
+
+    <div [ngClass]="[Display.flex, Display.justify.end, Display.margin.top[3], Display.gap[3]]">
+        <button mat-flat-button color="primary" (click)="openAddScreen()">Add</button>
+        <button mat-flat-button color="primary" (click)="update()">Update</button>
+    </div>
+</ng-container>

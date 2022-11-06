@@ -8,7 +8,7 @@ export interface CollectionData<T> {
     updated: Date;
 }
 
-export const DefaultResponseData = <T>(loading = false): CollectionData<T> => ({ loading, data: [], updated: new Date() });
+export const DefaultCollectionData = <T>(loading = false): CollectionData<T> => ({ loading, data: [], updated: new Date() });
 
 export class Collection<T> {
     private path: string;

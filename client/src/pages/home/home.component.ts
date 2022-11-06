@@ -4,7 +4,7 @@ import { DataService } from 'src/services/data-service/data.service';
 import { HelpersComponent } from 'src/components/helpers-component/helpers.component';
 import { Status } from 'common/communication/status';
 import { PlanRepas } from 'common/tables/plan-repas';
-import { DefaultResponseData, CollectionData } from 'src/utils/data';
+import { DefaultCollectionData, CollectionData } from 'src/utils/data';
 import { Router } from '@angular/router';
 import { DeletePlanRepasComponent } from '../delete-plan-repas/delete-plan-repas.component';
 import { UpdatePlanRepasComponent } from '../update-plan-repas/update-plan-repas.component';
@@ -27,7 +27,7 @@ export class HomeComponent extends HelpersComponent implements OnInit {
     private router: Router
   ) {
     super();
-    this.planRepas = DefaultResponseData();
+    this.planRepas = DefaultCollectionData();
   }
 
   ngOnInit(): void {
