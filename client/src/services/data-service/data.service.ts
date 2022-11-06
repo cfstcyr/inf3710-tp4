@@ -5,14 +5,7 @@ import { ApiService } from '../api-service/api.service';
 import { Collection, CollectionData } from 'src/utils/data';
 import { TableItem } from 'common/tables';
 import { getTables, TABLE_ITEMS } from 'src/config/data';
-
-// interface DataItem {
-//   planRepas: PlanRepas;
-// }
-
-// const DATA_ITEMS: { [K in keyof DataItem]: string } = {
-//   planRepas: '/plan-repas',
-// };
+import { AlertManagerService } from '../alert-manager/alert-manager.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +13,10 @@ import { getTables, TABLE_ITEMS } from 'src/config/data';
 export class DataService {
   private dataItems: { [K in keyof TableItem]: Collection<TableItem[K]> }
 
-  constructor(private readonly apiService: ApiService) {
+  constructor(
+    apiService: ApiService,
+    private readonly alertManager: AlertManagerService
+  ) {
     this.dataItems = {} as any;
 
     for (const key of getTables()) {
@@ -53,47 +49,32 @@ export class DataService {
   }
 
   async insert<K extends keyof TableItem>(item: K, data: Partial<TableItem[K]>): Promise<void> {
-    await firstValueFrom(this.dataItems[item].insert(data))
+    try {
+      await firstValueFrom(this.dataItems[item].insert(data));
+      this.alertManager.info(`${item} created.`);
+    } catch (e) {
+      this.alertManager.info(`Error while creating ${item}.`);
+      console.error(e);
+    }
   }
 
   async delete<K extends keyof TableItem>(item: K, id: string | number): Promise<void> {
-    await firstValueFrom(this.dataItems[item].delete(id));
+    try {
+      await firstValueFrom(this.dataItems[item].delete(id));
+      this.alertManager.info(`${item} deleted.`);
+    } catch (e) {
+      this.alertManager.info(`Error while deleting ${item}.`);
+      console.error(e);
+    }
   }
 
   async patch<K extends keyof TableItem>(item: K, id: string | number, updates: Partial<TableItem[K]>): Promise<void> {
+    try {
     await firstValueFrom(this.dataItems[item].patch(id, updates));
+      this.alertManager.info(`${item} updated.`);
+    } catch (e) {
+      this.alertManager.info(`Error while updating ${item}.`);
+      console.error(e);
+    }
   }
-
-  // subscribe<T extends keyof DataItem>(item: T, next: (value: CollectionData<DataItem[T]>) => void): Subscription {
-  //   return (this.dataMap.get(item)! as Collection<DataItem[T]>).subscribe(next);
-  // }
-
-  // update(item: keyof DataItem | (keyof DataItem)[]): void {
-  //   const items = typeof item === 'string' ? [item] : item;
-
-  //   for (const itemKey of items) {
-  //     this.dataMap.get(itemKey)!.fetch();
-  //   }
-  // }
-
-  // updateAll(): void {
-  //   for (const data of this.dataMap.values()) {
-  //     data.fetch();
-  //   }
-  // }
-
-  // async deletePlanRepas(id: number): Promise<void> {
-    // await this.apiService.delete('/plan-repas', {id: id}).subscribe();
-    // this.update('planRepas');
-  // }
-
-  // async addPlanRepas(plan: Omit<PlanRepas, 'idplanrepas'>): Promise<void> {
-  //   await this.apiService.post('/plan-repas', {plan: plan}).subscribe();
-  //   this.update('planRepas');
-  // }
-
-  // async updatePlanRepas(plan: PlanRepas): Promise<void> {
-    // await this.apiService.patch('/plan-repas', {plan: plan}).subscribe();
-    // this.update('planRepas');
-  // }
 }
