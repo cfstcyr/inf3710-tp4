@@ -7,8 +7,8 @@ import { DataService } from 'src/services/data-service/data.service';
 var defaultPlan: Omit<PlanRepas, 'idplanrepas'> = {
   categorie: 'végétarien',
   frequence: 2,
-  nbrpersonne: 4,
-  nbrcalorie: 1200,
+  nbrpersonnes: 4,
+  nbrcalories: 1200,
   prix: 40,
   idfournisseur: 1
 }
@@ -35,11 +35,11 @@ export class AddPlanRepasComponent implements OnInit, OnChanges {
         Validators.required,
         Validators.min(0),
       ]),
-      newNbrPersonnes: new FormControl(defaultPlan.nbrpersonne, [
+      newNbrPersonnes: new FormControl(defaultPlan.nbrpersonnes, [
         Validators.required,
         Validators.min(0),
       ]),
-      newNbrCalories: new FormControl(defaultPlan.nbrcalorie, [
+      newNbrCalories: new FormControl(defaultPlan.nbrcalories, [
         Validators.required,
         Validators.min(0),
       ]),
@@ -70,8 +70,8 @@ export class AddPlanRepasComponent implements OnInit, OnChanges {
       {
         categorie: this.formParameters.get('newCategorie')?.value,
         frequence: this.formParameters.get('newFrequence')?.value,
-        nbrpersonne: this.formParameters.get('newNbrPersonnes')?.value,
-        nbrcalorie: this.formParameters.get('newNbrCalories')?.value,
+        nbrpersonnes: this.formParameters.get('newNbrPersonnes')?.value,
+        nbrcalories: this.formParameters.get('newNbrCalories')?.value,
         prix: this.formParameters.get('newPrix')?.value,
         idfournisseur: this.formParameters.get('newIdFournisseur')?.value
       }
