@@ -1,4 +1,12 @@
-<ng-container>
+<ng-container *ngIf="collectionData.error">
+    <span [ngClass]="[Display.flex, Display.align.center, Display.gap[3]]">
+        <mat-icon fontIcon="error" [ngStyle]="{ color: 'tomato' }"></mat-icon>
+        <span>{{ collectionData.error }}</span>
+    </span>
+</ng-container>
+
+
+<ng-container *ngIf="!collectionData.error">
     <app-table 
         [items]="collectionData" 
         [buttons]="[

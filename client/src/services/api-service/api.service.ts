@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { s } from 'src/utils/url';
 import { Status } from 'common/communication/status';
 import { Collection } from 'src/utils/data';
+import { AlertManagerService } from '../alert-manager/alert-manager.service';
 
 interface Options {
   headers?: HttpHeaders | {
@@ -21,14 +22,14 @@ interface Options {
   providedIn: 'root'
 })
 export class ApiService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private alertManager: AlertManagerService) { }
 
   status(): Observable<Status> {
     return this.http.get<Status>(s('/'));
   }
 
   createData<T>(path: string): Collection<T> {
-    return new Collection<T>(path, this);
+    return new Collection<T>(path, this, this.alertManager);
   }
 
   get<T>(path: string, options: Options = {}): Observable<T> {

@@ -1,4 +1,6 @@
+import { HttpErrorResponse } from "@angular/common/http";
 import { BehaviorSubject, catchError, Subject, Subscription, throwError } from "rxjs";
+import { AlertManagerService } from "src/services/alert-manager/alert-manager.service";
 import { ApiService } from "src/services/api-service/api.service";
 
 export interface CollectionData<T> {
@@ -14,11 +16,13 @@ export class Collection<T> {
     private path: string;
     private data: BehaviorSubject<CollectionData<T> | undefined>;
     private apiService: ApiService;
+    private alertManager: AlertManagerService;
 
-    constructor (path: string, apiService: ApiService) {
+    constructor (path: string, apiService: ApiService, alertManager: AlertManagerService) {
         this.path = path;
         this.data = new BehaviorSubject<CollectionData<T> | undefined>(undefined);
         this.apiService = apiService;
+        this.alertManager = alertManager;
     }
 
     subscribe(next: (value: CollectionData<T>) => void): Subscription {
@@ -37,7 +41,12 @@ export class Collection<T> {
         observable
             .pipe(
                 catchError((error: Error) => {
-                    this.data.next({ loading: false, data: [], error: String(error), updated: new Date() });
+                    this.data.next({ 
+                        loading: false, 
+                        data: [], 
+                        error: this.getErrorMessage(error), 
+                        updated: new Date(),
+                    });
                     return throwError(() => error);
                 }),
             )
@@ -57,6 +66,7 @@ export class Collection<T> {
         observable 
             .pipe(
                 catchError((error: Error) => {
+                    this.alertManager.error(this.getErrorMessage(error));
                     return throwError(() => error);
                 }),
             )
@@ -76,6 +86,7 @@ export class Collection<T> {
         observable 
             .pipe(
                 catchError((error: Error) => {
+                    this.alertManager.error(String(error));
                     return throwError(() => error);
                 }),
             )
@@ -95,6 +106,7 @@ export class Collection<T> {
         observable 
             .pipe(
                 catchError((error: Error) => {
+                    this.alertManager.error(String(error));
                     return throwError(() => error);
                 }),
             )
@@ -107,5 +119,13 @@ export class Collection<T> {
 
     private nextLoading() {
         this.data.next({ loading: true, data: this.data.value?.data ?? [], updated: this.data.value?.updated ?? new Date() });
+    }
+
+    private getErrorMessage(error: Error): string {
+        return error instanceof HttpErrorResponse 
+            ? (error.error.message 
+                ? error.error.message 
+                : error.message) 
+            : String(error);
     }
 }
