@@ -35,5 +35,11 @@ export class PlanRepasController extends AbstractController {
                 await this.planRepasService.insertPlanRepas(req.body.plan),
             );
         });
+
+        router.patch('/', async (req, res) => {
+            res.status(StatusCodes.OK).json(
+                await this.planRepasService.updatePlanRepas(req.body.plan),
+            );
+        });
     }
 }

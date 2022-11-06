@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { PlanRepas } from 'common/tables/plan-repas';
+import { DataService } from 'src/services/data-service/data.service';
+import { AddPlanRepasComponent } from '../add-plan-repas/add-plan-repas.component';
 
 @Component({
   selector: 'app-update-plan-repas',
@@ -6,10 +11,67 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./update-plan-repas.component.scss']
 })
 export class UpdatePlanRepasComponent implements OnInit {
+  planRepas: PlanRepas;
+  formParameters: FormGroup;
 
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<AddPlanRepasComponent>,
+    private dataService: DataService,
+    @Inject(MAT_DIALOG_DATA) public data: PlanRepas,
+  ) {
+    this.planRepas = data;
+    console.log(this.planRepas);
+    this.formParameters = new FormGroup({
+      newCategorie: new FormControl(this.planRepas.categorie, [
+          Validators.required,
+      ]),
+      newFrequence: new FormControl(this.planRepas.frequence, [
+        Validators.required,
+        Validators.min(0),
+      ]),
+      newNbrPersonnes: new FormControl(this.planRepas.nbrpersonnes, [
+        Validators.required,
+        Validators.min(0),
+      ]),
+      newNbrCalories: new FormControl(this.planRepas.nbrcalories, [
+        Validators.required,
+        Validators.min(0),
+      ]),
+      newPrix: new FormControl(this.planRepas.prix, [
+        Validators.required,
+        Validators.min(0),
+      ]),
+      newIdFournisseur: new FormControl(this.planRepas.idfournisseur, [
+        Validators.required,
+        Validators.min(0),
+      ]),
+    });
+  }
 
   ngOnInit(): void {
   }
 
+  ngOnChanges(): void {
+    this.formParameters.updateValueAndValidity();
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close();
+  }
+
+  async updatePlanRepas(): Promise<void> {
+    await this.dataService.updatePlanRepas(
+      {
+        idplanrepas: this.planRepas.idplanrepas,
+        categorie: this.formParameters.get('newCategorie')?.value,
+        frequence: this.formParameters.get('newFrequence')?.value,
+        nbrpersonnes: this.formParameters.get('newNbrPersonnes')?.value,
+        nbrcalories: this.formParameters.get('newNbrCalories')?.value,
+        prix: this.formParameters.get('newPrix')?.value,
+        idfournisseur: this.formParameters.get('newIdFournisseur')?.value
+      }
+    );
+    this.dataService.update('planRepas');
+    this.closeDialog();
+  }
 }

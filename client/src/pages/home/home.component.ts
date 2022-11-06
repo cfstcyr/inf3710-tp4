@@ -36,17 +36,17 @@ export class HomeComponent extends HelpersComponent implements OnInit {
     });
   }
   
-  deletePlanRepas(plan: PlanRepas): void {
+  update(): void {
+    this.dataService.update('planRepas');
+  }
+  
+  openDeleteScreen(plan: PlanRepas): void {
     this.dialog.open(DeletePlanRepasComponent, {
       data: plan
     });
   }
 
-  update(): void {
-    this.dataService.update('planRepas');
-  }
-
-  updatePlanRepas(plan: PlanRepas): void {
+  openUpdateScreen(plan: PlanRepas): void {
     this.dialog.open(UpdatePlanRepasComponent, {
       data: plan
     });

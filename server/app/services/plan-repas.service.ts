@@ -32,16 +32,17 @@ export class PlanRepasService {
         await this.databaseService.query(
             `INSERT INTO TP4_Livraison.PlanRepas VALUES(${maxId + 1}, '${
                 plan.categorie
-            }', ${plan.frequence}, ${plan.nbrpersonne}, ${plan.nbrcalorie}, ${
+            }', ${plan.frequence}, ${plan.nbrpersonnes}, ${plan.nbrcalories}, ${
                 plan.prix
             }, ${plan.idfournisseur});`,
         );
     }
 
     public async updatePlanRepas(plan: PlanRepas): Promise<void> {
+        console.log(plan);
         await this.databaseService.query(
             `UPDATE TP4_Livraison.PlanRepas 
-            SET categorie = ${plan.categorie}, frequence = ${plan.frequence}, nbrpersonne = ${plan.nbrpersonne}, nbrcalorie = ${plan.nbrcalorie}, prix = ${plan.prix}, idfournisseur = ${plan.idfournisseur})
+            SET categorie = '${plan.categorie}', frequence = ${plan.frequence}, nbrpersonnes = ${plan.nbrpersonnes}, nbrcalories = ${plan.nbrcalories}, prix = ${plan.prix}, idfournisseur = ${plan.idfournisseur}
             WHERE idplanrepas = ${plan.idplanrepas};`,
         );
     }
