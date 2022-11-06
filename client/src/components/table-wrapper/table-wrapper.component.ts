@@ -25,7 +25,6 @@ export class TableWrapperComponent<K extends keyof TableItem> extends HelpersCom
   ngOnInit(): void {
     if (!this.table) throw new Error('Table is not set');
     this.dataService.subscribe(this.table, (value) => {
-      console.log(value);
       this.collectionData = value;
     });
   }

@@ -15,6 +15,8 @@ import { AddPlanRepasComponent } from '../pages/add-plan-repas/add-plan-repas.co
 import { UpdatePlanRepasComponent } from '../pages/update-plan-repas/update-plan-repas.component';
 import { DeletePlanRepasComponent } from '../pages/delete-plan-repas/delete-plan-repas.component';
 import { TableWrapperComponent } from 'src/components/table-wrapper/table-wrapper.component';
+import { DataPageComponent } from 'src/pages/data-page/data-page.component';
+import { NotFoundComponent } from '../pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { TableWrapperComponent } from 'src/components/table-wrapper/table-wrappe
     UpdatePlanRepasComponent,
     DeletePlanRepasComponent,
     TableWrapperComponent,
+    DataPageComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

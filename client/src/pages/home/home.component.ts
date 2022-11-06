@@ -10,6 +10,7 @@ import { DeletePlanRepasComponent } from '../delete-plan-repas/delete-plan-repas
 import { UpdatePlanRepasComponent } from '../update-plan-repas/update-plan-repas.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPlanRepasComponent } from '../add-plan-repas/add-plan-repas.component';
+import { TABLE_ITEMS } from 'src/config/data';
 
 @Component({
   selector: 'app-home',
@@ -17,8 +18,9 @@ import { AddPlanRepasComponent } from '../add-plan-repas/add-plan-repas.componen
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent extends HelpersComponent implements OnInit {
-  protected planRepas: CollectionData<PlanRepas>
-  public that = this
+  protected planRepas: CollectionData<PlanRepas>;
+  protected tableItems = Object.values(TABLE_ITEMS);
+  public that = this;
 
   constructor(
     public dialog: MatDialog, 

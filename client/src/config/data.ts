@@ -2,16 +2,19 @@ import { TableItem } from "common/tables";
 
 export interface TableItemConfig<T> {
     path: string;
+    name: string;
     idKey: keyof T;
 }
 
 export const TABLE_ITEMS: { [K in keyof TableItem]: TableItemConfig<TableItem[K]> } = {
     planRepas: {
         path: 'plan-repas',
+        name: 'Plan repas',
         idKey: 'idplanrepas',
     },
     client: {
         path: 'client',
+        name: 'Client',
         idKey: 'idclient',
     }
 };

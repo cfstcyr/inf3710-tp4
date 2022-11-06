@@ -1,0 +1,14 @@
+<div class="container">
+    <mat-card>
+        <h1>{{ name }}</h1>
+    </mat-card>
+
+    <br>
+    
+    <mat-card>
+        <app-loading [loading]="table === undefined">
+            <app-table-wrapper [table]="table"></app-table-wrapper>
+        </app-loading>
+    </mat-card>
+</div>
+
