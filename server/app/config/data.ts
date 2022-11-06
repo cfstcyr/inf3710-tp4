@@ -19,6 +19,11 @@ export const TABLE_ITEMS: {
         table: 'TP4_Livraison.Client',
         idKey: 'idclient',
     },
+    fournisseur: {
+        path: 'fournisseur',
+        table: 'TP4_Livraison.Fournisseur',
+        idKey: 'idfournisseur',
+    },
 };
 
 export function getTables(): (keyof TableItem)[] {

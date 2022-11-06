@@ -16,6 +16,11 @@ export const TABLE_ITEMS: { [K in keyof TableItem]: TableItemConfig<TableItem[K]
         path: 'client',
         name: 'Client',
         idKey: 'idclient',
+    },
+    fournisseur: {
+        path: 'fournisseur',
+        name: 'Fournisseur',
+        idKey: 'idfournisseur',
     }
 };
 

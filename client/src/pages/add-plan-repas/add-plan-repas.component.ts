@@ -1,9 +1,11 @@
-import { Component, Inject, OnChanges, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Fournisseur } from 'common/tables';
 import { PlanRepas } from 'common/tables/plan-repas';
 import { HelpersComponent } from 'src/components/helpers-component/helpers.component';
 import { DataService } from 'src/services/data-service/data.service';
+import { CollectionData } from 'src/utils/data';
 
 var defaultPlan: Omit<PlanRepas, 'idplanrepas'> = {
   categorie: 'végétarien',
@@ -21,6 +23,7 @@ var defaultPlan: Omit<PlanRepas, 'idplanrepas'> = {
 })
 export class AddPlanRepasComponent extends HelpersComponent implements OnInit, OnChanges {
   planRepas: PlanRepas;
+  fournisseurs?: CollectionData<Fournisseur>;
   formParameters: FormGroup;
 
   constructor(
@@ -57,6 +60,9 @@ export class AddPlanRepasComponent extends HelpersComponent implements OnInit, O
   }
 
   ngOnInit(): void {
+    this.dataService.subscribe('fournisseur', (fournisseurs) => {
+      this.fournisseurs = fournisseurs;
+    });
   }
 
   ngOnChanges(): void {
