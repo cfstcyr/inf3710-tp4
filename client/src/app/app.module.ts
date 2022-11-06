@@ -6,7 +6,6 @@ import { HomeComponent } from 'src/pages/home/home.component';
 import { AppRoutingModule } from '../modules/app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from '../components/header/header.component';
-import { AboutComponent } from 'src/pages/about/about.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SettingsComponent } from '../pages/settings/settings.component';
 import { TableComponent } from 'src/components/table/table.component';
@@ -23,7 +22,6 @@ import { NotFoundComponent } from '../pages/not-found/not-found.component';
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    AboutComponent,
     SettingsComponent,
     TableComponent,
     LoadingComponent,

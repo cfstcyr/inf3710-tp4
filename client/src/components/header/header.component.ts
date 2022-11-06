@@ -18,10 +18,6 @@ const HEADER_ITEMS: HeaderItem[] = [
     path: '/',
   },
   {
-    title: 'About',
-    path: '/about',
-  },
-  {
     title: 'Settings',
     path: '/settings',
   },
