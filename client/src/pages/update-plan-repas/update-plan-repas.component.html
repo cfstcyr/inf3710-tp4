@@ -5,6 +5,7 @@
             class="form-field"
             appearance="outline"
             [formGroup]="formParameters"
+            [ngStyle]="{ width: '100%' }"
         >
             <mat-label>Catégorie</mat-label>
             <input
@@ -22,6 +23,7 @@
             class="form-field"
             appearance="outline"
             [formGroup]="formParameters"
+            [ngStyle]="{ width: '100%' }"
             >
             <mat-label>Fréquence</mat-label>
             <input
@@ -39,6 +41,7 @@
           class="form-field"
           appearance="outline"
           [formGroup]="formParameters"
+          [ngStyle]="{ width: '100%' }"
           >
           <mat-label>Nombre de personnes</mat-label>
           <input
@@ -56,6 +59,7 @@
           class="form-field"
           appearance="outline"
           [formGroup]="formParameters"
+          [ngStyle]="{ width: '100%' }"
           >
           <mat-label>Nombre de calories</mat-label>
           <input
@@ -73,6 +77,7 @@
           class="form-field"
           appearance="outline"
           [formGroup]="formParameters"
+          [ngStyle]="{ width: '100%' }"
           >
           <mat-label>Prix</mat-label>
           <input
@@ -89,6 +94,7 @@
           class="form-field"
           appearance="outline"
           [formGroup]="formParameters"
+          [ngStyle]="{ width: '100%' }"
           >
           <mat-label>Id du fournisseur</mat-label>
           <input
@@ -101,13 +107,13 @@
           />
       </mat-form-field>
     </div>
-    <div id="buttons-container">
+    <div [ngClass]="[Display.flex, Display.justify.end, Display.gap[3]]">
         <button mat-flat-button color = "primary" (click)="updatePlanRepas()" [disabled]="!formParameters.valid">
-            <mat-icon icon="pencil"></mat-icon>
+            <mat-icon fontIcon="edit"></mat-icon>
             Mettre à jour
         </button>
         <button mat flat button mat-button color = "primary" (click)="closeDialog()">
-            <mat-icon icon="ban"></mat-icon>
+            <mat-icon fontIcon="cancel"></mat-icon>
             Annuler
         </button> 
     </div>

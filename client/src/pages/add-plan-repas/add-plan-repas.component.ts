@@ -2,6 +2,7 @@ import { Component, Inject, OnChanges, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PlanRepas } from 'common/tables/plan-repas';
+import { HelpersComponent } from 'src/components/helpers-component/helpers.component';
 import { DataService } from 'src/services/data-service/data.service';
 
 var defaultPlan: Omit<PlanRepas, 'idplanrepas'> = {
@@ -18,7 +19,7 @@ var defaultPlan: Omit<PlanRepas, 'idplanrepas'> = {
   templateUrl: './add-plan-repas.component.html',
   styleUrls: ['./add-plan-repas.component.scss']
 })
-export class AddPlanRepasComponent implements OnInit, OnChanges {
+export class AddPlanRepasComponent extends HelpersComponent implements OnInit, OnChanges {
   planRepas: PlanRepas;
   formParameters: FormGroup;
 
@@ -26,6 +27,7 @@ export class AddPlanRepasComponent implements OnInit, OnChanges {
     public dialogRef: MatDialogRef<AddPlanRepasComponent>,
     private dataService: DataService
   ) {
+    super();
     this.planRepas = {idplanrepas: 1, ...defaultPlan};
     this.formParameters = new FormGroup({
       newCategorie: new FormControl(defaultPlan.categorie, [

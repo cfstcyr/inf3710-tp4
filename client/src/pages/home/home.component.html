@@ -1,20 +1,9 @@
 <div class="container">
     <mat-card>
-        <div [ngClass]="[Display.flex, Display.justify.between]">
-            <h1 [ngClass]="[Display.margin[0]]">Home</h1>
-        </div>
+        <h1 [ngClass]="[Display.margin[0], Display.margin.bottom[2]]">Home</h1>
+        <h2>Plan repas</h2>
     </mat-card>
 
-    <br>
-
-    <mat-card>
-        <div [ngClass]="[Display.flex, Display.gap[2]]">
-            <ng-container *ngFor="let item of tableItems">
-                <a mat-flat-button color="primary" [routerLink]="'data/' + item.path">{{ item.name }}</a>
-            </ng-container>
-        </div>
-    </mat-card>
-    
     <br>
     
     <mat-card>

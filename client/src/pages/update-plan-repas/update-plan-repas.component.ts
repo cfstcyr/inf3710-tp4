@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PlanRepas } from 'common/tables/plan-repas';
+import { HelpersComponent } from 'src/components/helpers-component/helpers.component';
 import { DataService } from 'src/services/data-service/data.service';
 import { AddPlanRepasComponent } from '../add-plan-repas/add-plan-repas.component';
 
@@ -10,7 +11,7 @@ import { AddPlanRepasComponent } from '../add-plan-repas/add-plan-repas.componen
   templateUrl: './update-plan-repas.component.html',
   styleUrls: ['./update-plan-repas.component.scss']
 })
-export class UpdatePlanRepasComponent implements OnInit {
+export class UpdatePlanRepasComponent extends HelpersComponent implements OnInit {
   planRepas: PlanRepas;
   formParameters: FormGroup;
 
@@ -19,6 +20,7 @@ export class UpdatePlanRepasComponent implements OnInit {
     private dataService: DataService,
     @Inject(MAT_DIALOG_DATA) public data: PlanRepas,
   ) {
+    super();
     this.planRepas = data;
 
     this.formParameters = new FormGroup({

@@ -49,17 +49,27 @@ export class HomeComponent extends HelpersComponent implements OnInit {
       data: {
         table: 'planRepas',
         item: plan,
-      }
+      },
+      width: 'calc(100% - 48px)',
+      maxWidth: '450px',
+      maxHeight: 'calc(100vh - 48px)',
     });
   }
 
   openUpdateScreen(plan: PlanRepas): void {
     this.dialog.open(UpdatePlanRepasComponent, {
-      data: plan
+      data: plan,
+      width: 'calc(100% - 48px)',
+      maxWidth: '450px',
+      maxHeight: 'calc(100vh - 48px)',
     });
   }
 
   openAddScreen() {
-    this.dialog.open(AddPlanRepasComponent);
+    this.dialog.open(AddPlanRepasComponent, {
+      width: 'calc(100% - 48px)',
+      maxWidth: '450px',
+      maxHeight: 'calc(100vh - 48px)',
+    });
   }
 }
