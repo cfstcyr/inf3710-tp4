@@ -30,6 +30,7 @@
                 formControlName="newFrequence"
                 (ngModelChange)="ngOnChanges()"
                 (valueChanges)="ngOnChanges()"
+                pattern="[0-9]*"
             />
         </mat-form-field>
     </div>
@@ -45,7 +46,8 @@
               type="number"
               formControlName="newNbrPersonnes"
               (ngModelChange)="ngOnChanges()"
-              (valueChanges)="ngOnChanges()"
+              (valueChanges)="ngOnChanges()"              
+              pattern="[0-9]*"
           />
       </mat-form-field>
     </div>
@@ -62,6 +64,7 @@
               formControlName="newNbrCalories"
               (ngModelChange)="ngOnChanges()"
               (valueChanges)="ngOnChanges()"
+              pattern="[0-9]*"
           />
       </mat-form-field>
     </div>
@@ -93,12 +96,13 @@
               type="number"
               formControlName="newIdFournisseur"
               (ngModelChange)="ngOnChanges()"
-              (valueChanges)="ngOnChanges()"
+              (valueChanges)="ngOnChanges()"              
+              pattern="[0-9]*"
           />
       </mat-form-field>
     </div>
     <div id="buttons-container">
-        <button mat-flat-button color = "primary" (click)="updatePlanRepas()" [disabled]="false">
+        <button mat-flat-button color = "primary" (click)="updatePlanRepas()" [disabled]="!formParameters.valid">
             <mat-icon icon="pencil"></mat-icon>
             Mettre à jour
         </button>

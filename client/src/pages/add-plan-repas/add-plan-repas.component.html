@@ -30,6 +30,7 @@
                 formControlName="newFrequence"
                 (ngModelChange)="ngOnChanges()"
                 (valueChanges)="ngOnChanges()"
+                pattern="[0-9]*"
             />
         </mat-form-field>
     </div>
@@ -46,6 +47,7 @@
               formControlName="newNbrPersonnes"
               (ngModelChange)="ngOnChanges()"
               (valueChanges)="ngOnChanges()"
+              pattern="[0-9]*"
           />
       </mat-form-field>
     </div>
@@ -62,6 +64,7 @@
               formControlName="newNbrCalories"
               (ngModelChange)="ngOnChanges()"
               (valueChanges)="ngOnChanges()"
+              pattern="[0-9]*"
           />
       </mat-form-field>
     </div>
@@ -94,6 +97,7 @@
               formControlName="newIdFournisseur"
               (ngModelChange)="ngOnChanges()"
               (valueChanges)="ngOnChanges()"
+              pattern="[0-9]*"
           />
       </mat-form-field>
     </div>
