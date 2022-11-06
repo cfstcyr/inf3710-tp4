@@ -51,9 +51,9 @@ export class DataService {
   async insert<K extends keyof TableItem>(item: K, data: Partial<TableItem[K]>): Promise<void> {
     try {
       await firstValueFrom(this.dataItems[item].insert(data));
-      this.alertManager.info(`${item} created.`);
+      this.alertManager.info(`${TABLE_ITEMS[item].name} created.`);
     } catch (e) {
-      this.alertManager.info(`Error while creating ${item}.`);
+      this.alertManager.info(`Error while creating ${TABLE_ITEMS[item].name}.`);
       console.error(e);
     }
   }
@@ -61,9 +61,9 @@ export class DataService {
   async delete<K extends keyof TableItem>(item: K, id: string | number): Promise<void> {
     try {
       await firstValueFrom(this.dataItems[item].delete(id));
-      this.alertManager.info(`${item} deleted.`);
+      this.alertManager.info(`${TABLE_ITEMS[item].name} deleted.`);
     } catch (e) {
-      this.alertManager.info(`Error while deleting ${item}.`);
+      this.alertManager.info(`Error while deleting ${TABLE_ITEMS[item].name}.`);
       console.error(e);
     }
   }
@@ -71,9 +71,9 @@ export class DataService {
   async patch<K extends keyof TableItem>(item: K, id: string | number, updates: Partial<TableItem[K]>): Promise<void> {
     try {
     await firstValueFrom(this.dataItems[item].patch(id, updates));
-      this.alertManager.info(`${item} updated.`);
+      this.alertManager.info(`${TABLE_ITEMS[item].name} updated.`);
     } catch (e) {
-      this.alertManager.info(`Error while updating ${item}.`);
+      this.alertManager.info(`Error while updating ${TABLE_ITEMS[item].name}.`);
       console.error(e);
     }
   }

@@ -6,11 +6,12 @@ import { Status } from 'common/communication/status';
 import { PlanRepas } from 'common/tables/plan-repas';
 import { DefaultCollectionData, CollectionData } from 'src/utils/data';
 import { Router } from '@angular/router';
-import { DeletePlanRepasComponent } from '../delete-plan-repas/delete-plan-repas.component';
 import { UpdatePlanRepasComponent } from '../update-plan-repas/update-plan-repas.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPlanRepasComponent } from '../add-plan-repas/add-plan-repas.component';
 import { TABLE_ITEMS } from 'src/config/data';
+import { AlertManagerService } from 'src/services/alert-manager/alert-manager.service';
+import { DeleteTableItemComponent, DeleteTableItemData } from '../delete-table-item/delete-table-item.component';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +27,8 @@ export class HomeComponent extends HelpersComponent implements OnInit {
     public dialog: MatDialog, 
     private apiService: ApiService, 
     protected dataService: DataService, 
-    private router: Router
+    private router: Router,
+    private alertManager: AlertManagerService,
   ) {
     super();
     this.planRepas = DefaultCollectionData();
@@ -43,8 +45,11 @@ export class HomeComponent extends HelpersComponent implements OnInit {
   }
   
   openDeleteScreen(plan: PlanRepas): void {
-    this.dialog.open(DeletePlanRepasComponent, {
-      data: plan
+    this.dialog.open<unknown, DeleteTableItemData<'planRepas'>>(DeleteTableItemComponent, {
+      data: {
+        table: 'planRepas',
+        item: plan,
+      }
     });
   }
 

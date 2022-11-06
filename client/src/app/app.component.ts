@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
+import { AlertComponent } from 'src/components/alert/alert.component';
 import { Alert, AlertManagerService } from 'src/services/alert-manager/alert-manager.service';
 
 @Component({
@@ -27,6 +28,9 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   alert(alert: Alert) {
-    this.snackbar.open(alert.message, undefined, { duration: 2000 });
+    this.snackbar.openFromComponent(AlertComponent, {
+      duration: 2000,
+      data: alert,
+    });
   }
 }

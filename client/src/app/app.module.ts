@@ -12,10 +12,11 @@ import { TableComponent } from 'src/components/table/table.component';
 import { LoadingComponent } from '../components/loading/loading.component';
 import { AddPlanRepasComponent } from '../pages/add-plan-repas/add-plan-repas.component';
 import { UpdatePlanRepasComponent } from '../pages/update-plan-repas/update-plan-repas.component';
-import { DeletePlanRepasComponent } from '../pages/delete-plan-repas/delete-plan-repas.component';
 import { TableWrapperComponent } from 'src/components/table-wrapper/table-wrapper.component';
 import { DataPageComponent } from 'src/pages/data-page/data-page.component';
 import { NotFoundComponent } from '../pages/not-found/not-found.component';
+import { DeleteTableItemComponent } from '../pages/delete-table-item/delete-table-item.component';
+import { AlertComponent } from '../components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -27,10 +28,11 @@ import { NotFoundComponent } from '../pages/not-found/not-found.component';
     LoadingComponent,
     AddPlanRepasComponent,
     UpdatePlanRepasComponent,
-    DeletePlanRepasComponent,
     TableWrapperComponent,
     DataPageComponent,
     NotFoundComponent,
+    DeleteTableItemComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,

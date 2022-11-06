@@ -1,0 +1,5 @@
+<div [ngClass]="[Display.flex, Display.align.center, Display.gap[3]]">
+    <mat-icon *ngIf="alert.icon" [fontIcon]="alert.icon" [ngStyle]="{ color: getIconColor() }"></mat-icon>
+
+    <span>{{ alert.message }}</span>
+</div>

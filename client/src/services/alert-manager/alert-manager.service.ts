@@ -26,14 +26,14 @@ export class AlertManagerService {
   }
 
   info(message: string, icon?: string) {
-    this.subject.next({ message, icon, type: 'info' });
+    this.subject.next({ message, icon: icon ?? 'info', type: 'info' });
   }
 
   warn(message: string, icon?: string) {
-    this.subject.next({ message, icon, type: 'warn' });
+    this.subject.next({ message, icon: icon ?? 'warning', type: 'warn' });
   }
 
   error(message: string, icon?: string) {
-    this.subject.next({ message, icon, type: 'error' });
+    this.subject.next({ message, icon: icon ?? 'report', type: 'error' });
   }
 }

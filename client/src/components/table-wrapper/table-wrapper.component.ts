@@ -1,6 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { TableItem } from 'common/tables';
 import { Subject } from 'rxjs';
+import { DeleteTableItemComponent, DeleteTableItemData } from 'src/pages/delete-table-item/delete-table-item.component';
 import { DataService } from 'src/services/data-service/data.service';
 import { CollectionData, DefaultCollectionData } from 'src/utils/data';
 import { HelpersComponent } from '../helpers-component/helpers.component';
@@ -16,6 +18,7 @@ export class TableWrapperComponent<K extends keyof TableItem> extends HelpersCom
   protected that = this;
 
   constructor(
+    private dialog: MatDialog, 
     private readonly dataService: DataService,
   ) {
     super();
@@ -34,11 +37,17 @@ export class TableWrapperComponent<K extends keyof TableItem> extends HelpersCom
     this.dataService.update(this.table);
   }
   
-  openDeleteScreen(data: TableItem[K]): void {
-    console.log('delete', data);
-    // this.dialog.open(DeletePlanRepasComponent, {
-    //   data: plan
-    // });
+  openDeleteScreen(item: TableItem[K]): void {
+    if (!this.table) throw new Error('Table is not set');
+
+    this.dialog.open<unknown, DeleteTableItemData<K>>(DeleteTableItemComponent, {
+      data: {
+        table: this.table,
+        item: item,
+      },
+      width: 'calc(100% - 24px)',
+      maxWidth: '450px',
+    });
   }
 
   openUpdateScreen(data: TableItem[K]): void {

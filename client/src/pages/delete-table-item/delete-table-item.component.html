@@ -1,0 +1,18 @@
+<div>
+    <div [ngClass]="[Display.margin.bottom[5]]">
+        <h2 mat-dialog-title [ngClass]="[Display.margin.bottom[1]]">Supprimer {{ tableName }}</h2>
+        <p>Voulez-vous supprimer l'élément <span class="bold-primary">#{{ item[idKey] }}</span>?</p>
+    </div>
+    
+    <div [ngClass]="[Display.flex, Display.justify.end, Display.gap[2]]">
+        <button mat-flat-button color = "primary" (click)="deleteItem()">
+            <mat-icon fontIcon="delete"></mat-icon>
+            Supprimer
+        </button>
+        <button mat flat button mat-button color = "primary" type="button" (click)="close()">
+            <mat-icon fontIcon="cancel"></mat-icon>
+            Annuler
+        </button> 
+    </div>
+</div>
+
