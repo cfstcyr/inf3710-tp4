@@ -8,13 +8,11 @@
     <br>
     
     <mat-card>
-        <app-loading [loading]="planRepas">
-            <app-table [items]="planRepas" [buttons]="[{ icon: 'delete', action: log }]"></app-table>
+        <app-loading [loading]="planRepas.loading">
+            <app-table [items]="planRepas.data" [buttons]="[{ icon: 'delete', action: deletePlanRepas.bind(that) }, { icon: 'edit', action: updatePlanRepas }]"></app-table>
 
             <div [ngClass]="[Display.flex, Display.justify.end, Display.margin.top[3], Display.gap[3]]">
-                <button mat-flat-button color="primary" (click)="redirect('add-plan-repas')">Add</button>
-                <button mat-flat-button color="primary" (click)="redirect('update-plan-repas')">Update</button>
-                <button mat-flat-button color="primary" (click)="redirect('delete-plan-repas')">Delete</button>
+                <button mat-flat-button color="primary" (click)="openAddScreen()">Add</button>
                 <button mat-flat-button color="primary" (click)="update()">Update</button>
             </div>
         </app-loading>

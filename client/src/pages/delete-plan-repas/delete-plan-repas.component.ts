@@ -12,11 +12,11 @@ export class DeletePlanRepasComponent implements OnInit {
   planRepas: PlanRepas;
 
   constructor(
-    private dialogRef: MatDialogRef<DeletePlanRepasComponent>,
+    public dialogRef: MatDialogRef<DeletePlanRepasComponent>,
     private dataService: DataService,
-    @Inject(MAT_DIALOG_DATA) public plan: PlanRepas,
+    @Inject(MAT_DIALOG_DATA) public data: PlanRepas,
   ) { 
-    this.planRepas = this.plan;
+    this.planRepas = data;
   }
 
   ngOnInit(): void {
@@ -27,7 +27,7 @@ export class DeletePlanRepasComponent implements OnInit {
   }
 
   async deletePlanRepas(): Promise<void> {
-    await this.dataService.deletePlanRepas(this.planRepas.idPlanRepas);
+    await this.dataService.deletePlanRepas(this.planRepas.idplanrepas);
     this.dataService.update('planRepas');
     this.closeDialog();
   }

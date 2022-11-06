@@ -28,5 +28,12 @@ export class PlanRepasController extends AbstractController {
                 await this.planRepasService.deletePlanRepas(req.body.id),
             );
         });
+
+        router.post('/', async (req, res) => {
+            console.log(req.body);
+            res.status(StatusCodes.OK).json(
+                await this.planRepasService.insertPlanRepas(req.body.plan),
+            );
+        });
     }
 }

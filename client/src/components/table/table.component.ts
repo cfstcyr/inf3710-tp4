@@ -3,8 +3,8 @@ import { CollectionData } from 'src/utils/data';
 import { HelpersComponent } from '../helpers-component/helpers.component';
 
 interface TableButtonBase {
-  action?: (value: object) => void;
-  disabled?: boolean | ((value: object) => boolean);
+  action?: (value: any) => void;
+  disabled?: boolean | ((value: any) => boolean);
 }
 
 interface TableButtonText extends TableButtonBase {

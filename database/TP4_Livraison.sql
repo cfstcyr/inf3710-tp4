@@ -24,25 +24,25 @@ CREATE TABLE IF NOT EXISTS TP4_Livraison.Telephone (
 );
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Fournisseur (
-    idFournisseur SMALLINT NOT NULL PRIMARY KEY,
+    idfournisseur SMALLINT NOT NULL PRIMARY KEY,
     nomFournisseur VARCHAR(255),
     adresseFournisseur VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.PlanRepas (
-    idPlanRepas SMALLINT NOT NULL PRIMARY KEY,
+    idplanrepas SMALLINT NOT NULL PRIMARY KEY,
     categorie VARCHAR(255) NOT NULL,
     frequence INT NOT NULL,
-    nbrPersonnes INT NOT NULL,
-    nbrCalories INT NOT NULL,
+    nbrpersonnes INT NOT NULL,
+    nbrcalories INT NOT NULL,
     prix DECIMAL(7, 2) NOT NULL,
-    idFournisseur SMALLINT NOT NULL,
+    idfournisseur SMALLINT NOT NULL,
 
-    FOREIGN KEY (idFournisseur) REFERENCES TP4_Livraison.Fournisseur ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (idfournisseur) REFERENCES TP4_Livraison.Fournisseur ON UPDATE CASCADE ON DELETE CASCADE,
     
     CONSTRAINT frequence CHECK (frequence > 0),
-    CONSTRAINT nbrPersonnes CHECK (nbrPersonnes > 0),
-    CONSTRAINT nbrCalories CHECK (nbrCalories > 0),
+    CONSTRAINT nbrpersonnes CHECK (nbrpersonnes > 0),
+    CONSTRAINT nbrcalories CHECK (nbrcalories > 0),
     CONSTRAINT prix CHECK (prix > 0)
 );
 
@@ -57,45 +57,45 @@ CREATE TABLE IF NOT EXISTS TP4_Livraison.Abonner (
 );
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Famille (
-    idPlanRepas SMALLINT NOT NULL PRIMARY KEY,
+    idplanrepas SMALLINT NOT NULL PRIMARY KEY,
 
-    FOREIGN KEY (idPlanRepas) REFERENCES TP4_Livraison.PlanRepas ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (idplanrepas) REFERENCES TP4_Livraison.PlanRepas ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Rapide (
-    idPlanRepas SMALLINT NOT NULL PRIMARY KEY,
+    idplanrepas SMALLINT NOT NULL PRIMARY KEY,
     tempsDePreparation INT NOT NULL,
 
-    FOREIGN KEY (idPlanRepas) REFERENCES TP4_Livraison.Famille ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (idplanrepas) REFERENCES TP4_Livraison.Famille ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Rapide (
-    idPlanRepas SMALLINT NOT NULL PRIMARY KEY,
+    idplanrepas SMALLINT NOT NULL PRIMARY KEY,
     nbIngredients INT NOT NULL,
 
-    FOREIGN KEY (idPlanRepas) REFERENCES TP4_Livraison.Famille ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (idplanrepas) REFERENCES TP4_Livraison.Famille ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Vegetarien (
-    idPlanRepas SMALLINT NOT NULL PRIMARY KEY,
+    idplanrepas SMALLINT NOT NULL PRIMARY KEY,
     typeDeRepas VARCHAR(255) NOT NULL,
 
-    FOREIGN KEY (idPlanRepas) REFERENCES TP4_Livraison.PlanRepas ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (idplanrepas) REFERENCES TP4_Livraison.PlanRepas ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Pescetarien (
-    idPlanRepas SMALLINT NOT NULL PRIMARY KEY,
+    idplanrepas SMALLINT NOT NULL PRIMARY KEY,
     typePoisson VARCHAR(255) NOT NULL,
 
-    FOREIGN KEY (idPlanRepas) REFERENCES TP4_Livraison.PlanRepas ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (idplanrepas) REFERENCES TP4_Livraison.PlanRepas ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.KitRepas (
     idKitRepas SMALLINT NOT NULL PRIMARY KEY,
     "description" VARCHAR(255) NOT NULL,
-    idPlanRepas SMALLINT NOT NULL, 
+    idplanrepas SMALLINT NOT NULL, 
 
-    FOREIGN KEY (idPlanRepas) REFERENCES TP4_Livraison.PlanRepas ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (idplanrepas) REFERENCES TP4_Livraison.PlanRepas ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Image (
