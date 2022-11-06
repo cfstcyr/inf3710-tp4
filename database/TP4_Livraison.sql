@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS TP4_Livraison.Rapide (
     FOREIGN KEY (idplanrepas) REFERENCES TP4_Livraison.Famille ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS TP4_Livraison.Rapide (
+CREATE TABLE IF NOT EXISTS TP4_Livraison.Facile (
     idplanrepas SMALLINT NOT NULL PRIMARY KEY,
     nbIngredients INT NOT NULL,
 
@@ -129,8 +129,8 @@ CREATE TABLE IF NOT EXISTS TP4_Livraison.Etape (
     idKitRepasPartieDe SMALLINT,
     
     PRIMARY KEY (idKitRepas, numeroEtape),
-    FOREIGN KEY (idKitRepas) REFERENCES KitRepas ON UPDATE CASCADE ON DELETE CASCADE
-)
+    FOREIGN KEY (idKitRepas) REFERENCES TP4_Livraison.KitRepas ON UPDATE CASCADE ON DELETE CASCADE
+);
 
 
 -- POPULATE ==================================================
