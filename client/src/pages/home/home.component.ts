@@ -16,8 +16,8 @@ import { AddPlanRepasComponent } from '../add-plan-repas/add-plan-repas.componen
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponCollectionDataHelpersComponent implements OnInit {
-  protected planRepas: ResponseData<PlanRepas>
+export class HomeComponent extends HelpersComponent implements OnInit {
+  protected planRepas: CollectionData<PlanRepas>
   public that = this
 
   constructor(
