@@ -1,1 +1,112 @@
-<p>add-plan-repas works!</p>
+<h2 mat-dialog-title>Ajouter un plan repas</h2>
+<div id="container">
+    <div>
+        <mat-form-field
+            class="form-field"
+            appearance="outline"
+            [formGroup]="formParameters"
+        >
+            <mat-label>Catégorie</mat-label>
+            <input
+                matInput
+                type="text"
+                formControlName="newCategorie"
+                autocomplete="off"
+                (ngModelChange)="ngOnChanges()"
+                (valueChanges)="ngOnChanges()"
+            />
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field
+            class="form-field"
+            appearance="outline"
+            [formGroup]="formParameters"
+            >
+            <mat-label>Fréquence</mat-label>
+            <input
+                matInput
+                type="number"
+                formControlName="newFrequence"
+                (ngModelChange)="ngOnChanges()"
+                (valueChanges)="ngOnChanges()"
+            />
+        </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field
+          class="form-field"
+          appearance="outline"
+          [formGroup]="formParameters"
+          >
+          <mat-label>Nombre de personnes</mat-label>
+          <input
+              matInput
+              type="number"
+              formControlName="newNbrPersonnes"
+              (ngModelChange)="ngOnChanges()"
+              (valueChanges)="ngOnChanges()"
+          />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field
+          class="form-field"
+          appearance="outline"
+          [formGroup]="formParameters"
+          >
+          <mat-label>Nombre de calories</mat-label>
+          <input
+              matInput
+              type="number"
+              formControlName="newNbrCalories"
+              (ngModelChange)="ngOnChanges()"
+              (valueChanges)="ngOnChanges()"
+          />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field
+          class="form-field"
+          appearance="outline"
+          [formGroup]="formParameters"
+          >
+          <mat-label>Prix</mat-label>
+          <input
+              matInput
+              type="number"
+              formControlName="newPrix"
+              (ngModelChange)="ngOnChanges()"
+              (valueChanges)="ngOnChanges()"
+          />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field
+          class="form-field"
+          appearance="outline"
+          [formGroup]="formParameters"
+          >
+          <mat-label>Id du fournisseur</mat-label>
+          <input
+              matInput
+              type="number"
+              formControlName="newIdFournisseur"
+              (ngModelChange)="ngOnChanges()"
+              (valueChanges)="ngOnChanges()"
+          />
+      </mat-form-field>
+    </div>
+    <div id="buttons-container">
+        <button mat-flat-button color = "primary" (click)="addPlanRepas()" [disabled]="false">
+            <mat-icon icon="pencil"></mat-icon>
+            Ajouter
+        </button>
+        <button mat flat button mat-button color = "primary" (click)="closeDialog()">
+            <mat-icon icon="ban"></mat-icon>
+            Annuler
+        </button> 
+    </div>
+</div>
+    
+

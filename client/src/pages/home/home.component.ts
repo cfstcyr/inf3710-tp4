@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { DeletePlanRepasComponent } from '../delete-plan-repas/delete-plan-repas.component';
 import { UpdatePlanRepasComponent } from '../update-plan-repas/update-plan-repas.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AddPlanRepasComponent } from '../add-plan-repas/add-plan-repas.component';
 
 @Component({
   selector: 'app-home',
@@ -49,6 +50,10 @@ export class HomeComponent extends HelpersComponent implements OnInit {
     this.dialog.open(UpdatePlanRepasComponent, {
       data: plan
     });
+  }
+
+  openAddScreen() {
+    this.dialog.open(AddPlanRepasComponent);
   }
 
   redirect(newPage: string): void {

@@ -22,8 +22,19 @@ export class PlanRepasService {
     public async insertPlanRepas(
         plan: Omit<PlanRepas, 'idplanrepas'>,
     ): Promise<void> {
+        const existingPlansIds: number[] = (await this.getPlanRepas()).map(
+            (plan: PlanRepas) => {
+                return plan.idplanrepas;
+            },
+        );
+        const maxId = Math.max(...existingPlansIds);
+        console.log(plan);
         await this.databaseService.query(
-            `INSERT INTO TP4_Livraison.PlanRepas VALUES(${plan.categorie}, ${plan.frequence}, ${plan.nbrpersonne}, ${plan.nbrcalorie}, ${plan.prix}, ${plan.idfournisseur});`,
+            `INSERT INTO TP4_Livraison.PlanRepas VALUES(${maxId + 1}, '${
+                plan.categorie
+            }', ${plan.frequence}, ${plan.nbrpersonne}, ${plan.nbrcalorie}, ${
+                plan.prix
+            }, ${plan.idfournisseur});`,
         );
     }
 
