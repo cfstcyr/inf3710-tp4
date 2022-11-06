@@ -1,4 +1,4 @@
-import { BehaviorSubject, catchError, Subscription, throwError } from "rxjs";
+import { BehaviorSubject, catchError, Subject, Subscription, throwError } from "rxjs";
 import { ApiService } from "src/services/api-service/api.service";
 
 export interface CollectionData<T> {
@@ -36,10 +36,10 @@ export class Collection<T> {
         const observable = this.apiService.get<T[]>(this.path);
         observable
             .pipe(
-            catchError((error: Error) => {
-                this.data.next({ loading: false, data: [], error: String(error), updated: new Date() });
-                return throwError(() => error);
-            })
+                catchError((error: Error) => {
+                    this.data.next({ loading: false, data: [], error: String(error), updated: new Date() });
+                    return throwError(() => error);
+                }),
             )
             .subscribe((data) => {
                 this.data.next({ loading: false, data, updated: new Date() })
@@ -48,11 +48,61 @@ export class Collection<T> {
         return observable;
     }
 
-    delete(id: number) {
+    insert(data: Partial<T>) {
         this.nextLoading();
 
+        const s = new Subject<void>();
+
+        const observable = this.apiService.post<null>(this.path, { data });
+        observable 
+            .pipe(
+                catchError((error: Error) => {
+                    return throwError(() => error);
+                }),
+            )
+            .subscribe(() => {
+                this.fetch().subscribe(() => s.next());
+            });
+
+        return s.asObservable();
+    }
+
+    delete(id: number | string) {
+        this.nextLoading();
+
+        const s = new Subject<void>();
+
         const observable = this.apiService.delete<null>(this.path, { id });
-        
+        observable 
+            .pipe(
+                catchError((error: Error) => {
+                    return throwError(() => error);
+                }),
+            )
+            .subscribe(() => {
+                this.fetch().subscribe(() => s.next());
+            });
+
+        return s.asObservable();
+    }
+
+    patch(id: number | string, updates: Partial<T>) {
+        this.nextLoading();
+
+        const s = new Subject<void>();
+
+        const observable = this.apiService.patch<null>(this.path, { id, updates });
+        observable 
+            .pipe(
+                catchError((error: Error) => {
+                    return throwError(() => error);
+                }),
+            )
+            .subscribe(() => {
+                this.fetch().subscribe(() => s.next());
+            });
+
+        return s.asObservable();
     }
 
     private nextLoading() {

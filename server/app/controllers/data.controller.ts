@@ -2,9 +2,10 @@ import { Router } from 'express';
 import { registry, singleton } from 'tsyringe';
 import { Types } from '../types';
 import { AbstractController } from './abstract.controller';
-import { getTableFromPath, TableItem } from 'common/tables';
+import { TableItem } from 'common/tables';
 import { DataService } from '../services/data.service';
 import { StatusCodes } from 'http-status-codes';
+import { getTableFromPath } from '../config/data';
 
 @singleton()
 @registry([{ token: Types.Controllers, useClass: DataController }])
@@ -28,15 +29,31 @@ export class DataController extends AbstractController {
             }
         });
 
-        router.get('/:table/:id', async (req, res, next) => {
+        router.post('/:table', async (req, res, next) => {
             const table = this.getTable(req.params.table);
 
             if (!table) return next();
 
             try {
-                res.status(StatusCodes.OK).send(
-                    await this.dataService.getById(table, req.params.id),
+                await this.dataService.insert(table, req.body.data);
+                res.status(StatusCodes.CREATED).send();
+            } catch (error) {
+                next(error);
+            }
+        });
+
+        router.patch('/:table', async (req, res, next) => {
+            const table = this.getTable(req.params.table);
+
+            if (!table) return next();
+
+            try {
+                await this.dataService.patch(
+                    table,
+                    req.body.id,
+                    req.body.updates,
                 );
+                res.status(StatusCodes.NO_CONTENT).send();
             } catch (error) {
                 next(error);
             }
@@ -48,9 +65,8 @@ export class DataController extends AbstractController {
             if (!table) return next();
 
             try {
-                res.status(StatusCodes.OK).send(
-                    await this.dataService.deleteById(table, req.body.id),
-                );
+                await this.dataService.delete(table, req.body.id);
+                res.status(StatusCodes.NO_CONTENT).send();
             } catch (error) {
                 next(error);
             }

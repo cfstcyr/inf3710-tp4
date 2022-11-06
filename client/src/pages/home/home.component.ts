@@ -59,8 +59,4 @@ export class HomeComponent extends HelpersComponent implements OnInit {
   redirect(newPage: string): void {
     this.router.navigateByUrl(newPage);
   }
-
-  log(a: any) {
-    console.log(a);
-  }
 }

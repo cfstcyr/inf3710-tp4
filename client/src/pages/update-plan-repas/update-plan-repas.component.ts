@@ -20,7 +20,7 @@ export class UpdatePlanRepasComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: PlanRepas,
   ) {
     this.planRepas = data;
-    console.log(this.planRepas);
+
     this.formParameters = new FormGroup({
       newCategorie: new FormControl(this.planRepas.categorie, [
           Validators.required,
@@ -60,7 +60,9 @@ export class UpdatePlanRepasComponent implements OnInit {
   }
 
   async updatePlanRepas(): Promise<void> {
-    await this.dataService.updatePlanRepas(
+    await this.dataService.patch(
+      'planRepas',
+      this.planRepas.idplanrepas,
       {
         idplanrepas: this.planRepas.idplanrepas,
         categorie: this.formParameters.get('newCategorie')?.value,

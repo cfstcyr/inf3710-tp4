@@ -27,7 +27,7 @@ export class DeletePlanRepasComponent implements OnInit {
   }
 
   async deletePlanRepas(): Promise<void> {
-    await this.dataService.deletePlanRepas(this.planRepas.idplanrepas);
+    await this.dataService.delete('planRepas', this.planRepas.idplanrepas);
     this.dataService.update('planRepas');
     this.closeDialog();
   }

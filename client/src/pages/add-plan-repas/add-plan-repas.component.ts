@@ -66,7 +66,8 @@ export class AddPlanRepasComponent implements OnInit, OnChanges {
   }
 
   async addPlanRepas(): Promise<void> {
-    await this.dataService.addPlanRepas(
+    await this.dataService.insert(
+      'planRepas',
       {
         categorie: this.formParameters.get('newCategorie')?.value,
         frequence: this.formParameters.get('newFrequence')?.value,

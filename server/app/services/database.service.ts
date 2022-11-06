@@ -2,6 +2,8 @@ import * as pg from 'pg';
 import { singleton } from 'tsyringe';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
+import { HttpException } from '../models/http-exception';
+import { StatusCodes } from 'http-status-codes';
 
 @singleton()
 export class DatabaseService {
@@ -32,10 +34,26 @@ export class DatabaseService {
         return readFileSync(resolve(__dirname, this.resetSQLFile), 'utf-8');
     }
 
-    public async query<T>(query: string): Promise<T[]> {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    public async query<T>(query: string, values?: any[]): Promise<T[]> {
         const client = await this.pool.connect();
-        const res = await client.query(query);
+        const res = await client.query(query, values);
         client.release();
         return res.rows;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    public async queryOne<T>(query: string, values?: any[]): Promise<T> {
+        const result = await this.query<T>(query, values);
+
+        if (result.length === 0)
+            throw new HttpException(
+                'No item found for query',
+                StatusCodes.NOT_FOUND,
+            );
+        if (result.length > 1)
+            throw new Error('More than one item found for query');
+
+        return result[0];
     }
 }

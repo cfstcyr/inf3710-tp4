@@ -34,18 +34,9 @@ export class SettingsComponent extends HelpersComponent implements OnInit {
       .subscribe(({ script }) => this.resetScript = script.trim());
   }
 
-  protected reset() {
+  protected async reset() {
     if (confirm('Reset database? All date will be erased and mock data will be inserted.')) {
-      this.scriptService.reset()
-        .pipe(
-          catchError((err: Error) => {
-            this.snackbar.open('Error while trying to reset database.', undefined, { duration: 2000 });
-            return throwError(() => err);
-          }),
-        )
-        .subscribe(() => {
-          this.snackbar.open('Database was reset.', undefined, { duration: 2000 });
-        });
+      await this.scriptService.reset();
     }
   }
 }

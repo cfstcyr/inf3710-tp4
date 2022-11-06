@@ -26,7 +26,7 @@ import { DeletePlanRepasComponent } from '../pages/delete-plan-repas/delete-plan
     LoadingComponent,
     AddPlanRepasComponent,
     UpdatePlanRepasComponent,
-    DeletePlanRepasComponent
+    DeletePlanRepasComponent,
   ],
   imports: [
     BrowserModule,

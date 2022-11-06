@@ -1,7 +1,6 @@
-import { TableItem, TABLE_ITEMS } from 'common/tables';
-import { StatusCodes } from 'http-status-codes';
+import { TableItem } from 'common/tables';
 import { singleton } from 'tsyringe';
-import { HttpException } from '../models/http-exception';
+import { TABLE_ITEMS } from '../config/data';
 import { DatabaseService } from './database.service';
 
 @singleton()
@@ -12,38 +11,65 @@ export class DataService {
         table: K,
     ): Promise<TableItem[K][]> {
         return this.databaseService.query<TableItem[K]>(
-            `SELECT * FROM ${TABLE_ITEMS[table].table};`,
+            `SELECT * FROM ${this.getTableName(table)}
+                ORDER BY ${this.getIdKey(table)};`,
         );
     }
 
-    public async getById<K extends keyof TableItem>(
+    public async insert<K extends keyof TableItem>(
         table: K,
-        id: string | number,
-    ): Promise<TableItem[K]> {
-        const tableName = TABLE_ITEMS[table].table;
-        const idKey = String(TABLE_ITEMS[table].idKey);
-
-        const items = await this.databaseService.query<TableItem[K]>(
-            `SELECT * FROM ${tableName} t
-                WHERE t.${idKey} = ${id}`,
+        data: Partial<TableItem[K]>,
+    ): Promise<void> {
+        const id = await this.databaseService.queryOne<{ max: number }>(
+            `SELECT max(${this.getIdKey(table)}) 
+                FROM ${this.getTableName(table)}`,
         );
 
-        if (items.length === 0)
-            throw new HttpException(
-                `No element from "${tableName}" with id "${idKey}".`,
-                StatusCodes.NOT_FOUND,
-            );
+        data[this.getIdKey(table)] = id.max + 1;
 
-        return items[0];
+        await this.databaseService.query(
+            `INSERT INTO ${this.getTableName(table)} 
+                (${Object.keys(data).join(', ')})
+                VALUES (${Object.values(data)
+                    .map((_, i) => `$${i + 1}`)
+                    .join(', ')})`,
+            [...Object.values(data)],
+        );
     }
 
-    public async deleteById<K extends keyof TableItem>(
+    public async delete<K extends keyof TableItem>(
         table: K,
         id: string | number,
     ): Promise<void> {
         await this.databaseService.query(
-            `DELETE FROM ${TABLE_ITEMS[table].table} t
-            WHERE t.${String(TABLE_ITEMS[table].idKey)} = ${id};`,
+            `DELETE FROM ${this.getTableName(table)}
+            WHERE ${this.getIdKey(table)} = $1;`,
+            [id],
         );
+    }
+
+    public async patch<K extends keyof TableItem>(
+        table: K,
+        id: string | number,
+        updates: Partial<TableItem[K]>,
+    ): Promise<void> {
+        const keys = Object.keys(updates).filter(
+            k => k !== this.getIdKey(table),
+        );
+
+        await this.databaseService.query(
+            `UPDATE ${this.getTableName(table)}
+            SET ${keys.map((k, i) => `${k} = $${i + 1}`).join(', ')}
+            WHERE ${this.getIdKey(table)} = ${id};`,
+            [...keys.map(k => updates[k])],
+        );
+    }
+
+    private getTableName<K extends keyof TableItem>(table: K): string {
+        return TABLE_ITEMS[table].table;
+    }
+
+    private getIdKey<K extends keyof TableItem>(table: K): string {
+        return String(TABLE_ITEMS[table].idKey);
     }
 }
