@@ -33,19 +33,19 @@ export class AddPlanRepasComponent implements OnInit, OnChanges {
       ]),
       newFrequence: new FormControl(defaultPlan.frequence, [
         Validators.required,
-        Validators.min(0),
+        Validators.min(1),
       ]),
       newNbrPersonnes: new FormControl(defaultPlan.nbrpersonnes, [
         Validators.required,
-        Validators.min(0),
+        Validators.min(1),
       ]),
       newNbrCalories: new FormControl(defaultPlan.nbrcalories, [
         Validators.required,
-        Validators.min(0),
+        Validators.min(1),
       ]),
       newPrix: new FormControl(defaultPlan.prix, [
         Validators.required,
-        Validators.min(0),
+        Validators.min(1),
       ]),
       newIdFournisseur: new FormControl(defaultPlan.idfournisseur, [
         Validators.required,

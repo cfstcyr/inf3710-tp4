@@ -27,19 +27,19 @@ export class UpdatePlanRepasComponent implements OnInit {
       ]),
       newFrequence: new FormControl(this.planRepas.frequence, [
         Validators.required,
-        Validators.min(0),
+        Validators.min(1),
       ]),
       newNbrPersonnes: new FormControl(this.planRepas.nbrpersonnes, [
         Validators.required,
-        Validators.min(0),
+        Validators.min(1),
       ]),
       newNbrCalories: new FormControl(this.planRepas.nbrcalories, [
         Validators.required,
-        Validators.min(0),
+        Validators.min(1),
       ]),
       newPrix: new FormControl(this.planRepas.prix, [
         Validators.required,
-        Validators.min(0),
+        Validators.min(1),
       ]),
       newIdFournisseur: new FormControl(this.planRepas.idfournisseur, [
         Validators.required,
@@ -52,6 +52,7 @@ export class UpdatePlanRepasComponent implements OnInit {
   }
 
   ngOnChanges(): void {
+    this.formParameters.markAllAsTouched();
     this.formParameters.updateValueAndValidity();
   }
 
