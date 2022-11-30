@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS TP4_Livraison.Etape (
 --                                       id  nom         prenom      courriel                rue                     ville           codepostal
 INSERT INTO TP4_Livraison.Client VALUES (1, 'St-Cyr',   'Charles',  'charles@email.com',    'Rue Edouard-Monpetit', 'Montréal',     'A1A 1A1');
 INSERT INTO TP4_Livraison.Client VALUES (2, 'Brosseau', 'Mathilde', 'mathilde@email.com',   'Rue de Marseille',     'Montréal',     'B2B 2B2');
-INSERT INTO TP4_Livraison.Client VALUES (3, 'Noël',     'Père',     'papa@email.com',       'Rue Principale',       'Pôle Nord',    'H0H 0H0');
+INSERT INTO TP4_Livraison.Client VALUES (3, 'Noël',     'Père',     'papa@noel.com',       'Rue Principale',       'Pôle Nord',    'H0H 0H0');
 INSERT INTO TP4_Livraison.Client VALUES (5, 'Dupuis',   'Isabelle', 'isabelle@email.com',   'Rue de Marseille',     'Montréal',     'B2B 2B2');
 
 --                                           numero           client

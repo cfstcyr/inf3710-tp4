@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TableItem } from 'common/tables';
+import { HelpersComponent } from 'src/components/helpers-component/helpers.component';
 import { getTableFromPath, TABLE_ITEMS } from 'src/config/data';
 
 @Component({
