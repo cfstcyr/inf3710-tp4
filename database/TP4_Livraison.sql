@@ -163,6 +163,11 @@ INSERT INTO TP4_Livraison.PlanRepas VALUES (4, 'français',   2,         2,     
 INSERT INTO TP4_Livraison.PlanRepas VALUES (5, 'cetogène',   3,         3,          80,         17.75,  2);
 INSERT INTO TP4_Livraison.PlanRepas VALUES (6, 'fanceyoyy',  8,         80,         12000,      15000,  7);
 INSERT INTO TP4_Livraison.PlanRepas VALUES (7, 'moneymoney', 5,         12,         22000,      9000,   7);
+INSERT INTO TP4_Livraison.PlanRepas VALUES (8, 'cétogène',   1,         8,          1110,       12500,  1);
+
+--                                        id  
+INSERT INTO TP4_Livraison.Famille VALUES (5);
+INSERT INTO TP4_Livraison.Famille VALUES (8);
 
 --                                        client    plan   duree
 INSERT INTO TP4_Livraison.Abonner VALUES (1,        2,     4);
