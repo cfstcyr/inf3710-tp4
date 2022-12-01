@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Fournisseur } from 'common/tables';
 import { PlanRepas } from 'common/tables/plan-repas';
 import { HelpersComponent } from 'src/components/helpers-component/helpers.component';
+import { CATEGORIES } from 'src/constants/categories';
 import { DataService } from 'src/services/data-service/data.service';
 import { CollectionData } from 'src/utils/data';
 
@@ -22,19 +23,18 @@ var defaultPlan: Omit<PlanRepas, 'idplanrepas'> = {
   styleUrls: ['./add-plan-repas.component.scss']
 })
 export class AddPlanRepasComponent extends HelpersComponent implements OnInit, OnChanges {
-  planRepas: PlanRepas;
   fournisseurs?: CollectionData<Fournisseur>;
   formParameters: FormGroup;
+  categories = CATEGORIES;
 
   constructor(
     public dialogRef: MatDialogRef<AddPlanRepasComponent>,
     private dataService: DataService
   ) {
     super();
-    this.planRepas = {idplanrepas: 1, ...defaultPlan};
     this.formParameters = new FormGroup({
-      newCategorie: new FormControl(defaultPlan.categorie, [
-          Validators.required,
+      newCategorie: new FormControl(this.getRandomCategory(), [
+        Validators.required,
       ]),
       newFrequence: new FormControl(defaultPlan.frequence, [
         Validators.required,
@@ -89,4 +89,7 @@ export class AddPlanRepasComponent extends HelpersComponent implements OnInit, O
     this.closeDialog();
   }
 
+  private getRandomCategory(): string {
+    return CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)];
+  }
 }

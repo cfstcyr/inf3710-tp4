@@ -15,7 +15,13 @@
                 autocomplete="off"
                 (ngModelChange)="ngOnChanges()"
                 (valueChanges)="ngOnChanges()"
+                [matAutocomplete]="auto"
             />
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let cat of categories" [value]="cat">
+                    {{cat}}
+                </mat-option>
+            </mat-autocomplete>
         </mat-form-field>
     </div>
     <div>
