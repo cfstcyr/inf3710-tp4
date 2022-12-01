@@ -78,7 +78,7 @@ export class TableWrapperComponent<K extends keyof TableItem> extends HelpersCom
         maxHeight: 'calc(100vh - 48px)',  
       });
     } else {
-      alert(`Update ${this.table} not implemented`);
+      alert(`Add ${this.table} not implemented`);
     }
   }
 }
