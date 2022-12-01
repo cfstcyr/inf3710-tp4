@@ -6,7 +6,7 @@ import { NotFoundComponent } from 'src/pages/not-found/not-found.component';
 import { SettingsComponent } from 'src/pages/settings/settings.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', redirectTo: '/data/plan-repas', pathMatch: 'full'},
   { path: 'settings', component: SettingsComponent },
   { path: 'data/:table', component: DataPageComponent },
   { path: '**', component: NotFoundComponent }

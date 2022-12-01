@@ -1,7 +1,8 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ThisReceiver } from '@angular/compiler';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TableItem } from 'common/tables';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { AddPlanRepasComponent } from 'src/pages/add-plan-repas/add-plan-repas.component';
 import { DeleteTableItemComponent, DeleteTableItemData } from 'src/pages/delete-table-item/delete-table-item.component';
 import { UpdatePlanRepasComponent } from 'src/pages/update-plan-repas/update-plan-repas.component';
@@ -14,10 +15,11 @@ import { HelpersComponent } from '../helpers-component/helpers.component';
   templateUrl: './table-wrapper.component.html',
   styleUrls: ['./table-wrapper.component.scss']
 })
-export class TableWrapperComponent<K extends keyof TableItem> extends HelpersComponent implements OnInit {
+export class TableWrapperComponent<K extends keyof TableItem> extends HelpersComponent implements OnInit, OnChanges {
   @Input() table?: K;
   protected collectionData: CollectionData<TableItem[K]>;
   protected that = this;
+  private dataSubscription: undefined | Subscription
 
   constructor(
     private dialog: MatDialog, 
@@ -29,7 +31,15 @@ export class TableWrapperComponent<K extends keyof TableItem> extends HelpersCom
 
   ngOnInit(): void {
     if (!this.table) throw new Error('Table is not set');
-    this.dataService.subscribe(this.table, (value) => {
+    this.dataSubscription = this.dataService.subscribe(this.table, (value) => {
+      this.collectionData = value;
+    });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!this.table) throw new Error('Table is not set');
+    this.dataSubscription?.unsubscribe();
+    this.dataSubscription = this.dataService.subscribe(this.table, (value) => {
       this.collectionData = value;
     });
   }

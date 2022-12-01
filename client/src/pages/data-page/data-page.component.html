@@ -1,7 +1,13 @@
 <div class="container">
     <mat-card>
-        <h2>{{ name }}</h2>
-    </mat-card>
+      <h1 [ngClass]="[Display.margin[0], Display.margin.bottom[2]]"></h1>
+      <h2>{{ name }}</h2>
+      <div [ngClass]="[Display.flex, Display.gap[3]]">
+          <a *ngFor="let tableName of tableNames" [routerLink]="'/data/' + tableItems[tableName].path" mat-flat-button color="primary">
+              {{tableItems[tableName].name}}
+          </a>
+      </div>
+  </mat-card>
 
     <br>
     
