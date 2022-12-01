@@ -4,7 +4,7 @@ DROP SCHEMA IF EXISTS TP4_Livraison CASCADE;
 CREATE SCHEMA TP4_Livraison;
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Client (
-    idClient SERIAL NOT NULL,
+    idClient INT NOT NULL,
     nomClient VARCHAR(255) NOT NULL,
     prenomClient VARCHAR(255) NOT NULL,
     adresseCourrielClient VARCHAR(255) NOT NULL,
@@ -17,26 +17,26 @@ CREATE TABLE IF NOT EXISTS TP4_Livraison.Client (
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Telephone (
     numeroTelephone VARCHAR(20) NOT NULL,
-    idClient SERIAL NOT NULL,
+    idClient INT NOT NULL,
     
     PRIMARY KEY (numeroTelephone, idClient),
     FOREIGN KEY (idClient) REFERENCES TP4_Livraison.Client ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Fournisseur (
-    idfournisseur SERIAL NOT NULL PRIMARY KEY,
+    idfournisseur INT NOT NULL PRIMARY KEY,
     nomFournisseur VARCHAR(255),
     adresseFournisseur VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS TP4_Livraison.PlanRepas (
-    idplanrepas SERIAL NOT NULL PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS TP4_Livraison.Planrepas (
+    idplanrepas INT NOT NULL PRIMARY KEY,
     categorie VARCHAR(255) NOT NULL,
     frequence INT NOT NULL,
     nbrpersonnes INT NOT NULL,
     nbrcalories INT NOT NULL,
     prix DECIMAL(7, 2) NOT NULL,
-    idfournisseur SERIAL NOT NULL,
+    idfournisseur INT NOT NULL,
 
     FOREIGN KEY (idfournisseur) REFERENCES TP4_Livraison.Fournisseur ON UPDATE CASCADE ON DELETE CASCADE,
     
@@ -47,89 +47,89 @@ CREATE TABLE IF NOT EXISTS TP4_Livraison.PlanRepas (
 );
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Abonner (
-    idClient SERIAL NOT NULL,
-    idPlan SERIAL NOT NULL,
+    idClient INT NOT NULL,
+    idPlan INT NOT NULL,
     duree INT NOT NULL,
 
     PRIMARY KEY (idClient, idPlan),
     FOREIGN KEY (idClient) REFERENCES TP4_Livraison.Client ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (idPlan) REFERENCES TP4_Livraison.PlanRepas ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (idPlan) REFERENCES TP4_Livraison.Planrepas ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Famille (
-    idplanrepas SERIAL NOT NULL PRIMARY KEY,
+    idplanrepas INT NOT NULL PRIMARY KEY,
 
-    FOREIGN KEY (idplanrepas) REFERENCES TP4_Livraison.PlanRepas ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (idplanrepas) REFERENCES TP4_Livraison.Planrepas ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Rapide (
-    idplanrepas SERIAL NOT NULL PRIMARY KEY,
-    tempsDePreparation INT NOT NULL,
+    idplanrepas INT NOT NULL PRIMARY KEY,
+    tempsdepreparation INT NOT NULL,
 
     FOREIGN KEY (idplanrepas) REFERENCES TP4_Livraison.Famille ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Facile (
-    idplanrepas SERIAL NOT NULL PRIMARY KEY,
-    nbIngredients INT NOT NULL,
+    idplanrepas INT NOT NULL PRIMARY KEY,
+    nbingredients INT NOT NULL,
 
     FOREIGN KEY (idplanrepas) REFERENCES TP4_Livraison.Famille ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Vegetarien (
-    idplanrepas SERIAL NOT NULL PRIMARY KEY,
-    typeDeRepas VARCHAR(255) NOT NULL,
+    idplanrepas INT NOT NULL PRIMARY KEY,
+    typederepas VARCHAR(255) NOT NULL,
 
-    FOREIGN KEY (idplanrepas) REFERENCES TP4_Livraison.PlanRepas ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (idplanrepas) REFERENCES TP4_Livraison.Planrepas ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Pescetarien (
-    idplanrepas SERIAL NOT NULL PRIMARY KEY,
-    typePoisson VARCHAR(255) NOT NULL,
+    idplanrepas INT NOT NULL PRIMARY KEY,
+    typepoisson VARCHAR(255) NOT NULL,
 
-    FOREIGN KEY (idplanrepas) REFERENCES TP4_Livraison.PlanRepas ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (idplanrepas) REFERENCES TP4_Livraison.Planrepas ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS TP4_Livraison.KitRepas (
-    idKitRepas SERIAL NOT NULL PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS TP4_Livraison.Kitrepas (
+    idkitrepas INT NOT NULL PRIMARY KEY,
     "description" VARCHAR(255) NOT NULL,
-    idplanrepas SERIAL NOT NULL, 
+    idplanrepas INT NOT NULL, 
 
-    FOREIGN KEY (idplanrepas) REFERENCES TP4_Livraison.PlanRepas ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (idplanrepas) REFERENCES TP4_Livraison.Planrepas ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Image (
-    idImage SERIAL NOT NULL PRIMARY KEY,
-    donnes VARCHAR(2048) NOT NULL,
-    idKitRepas SERIAL NOT NULL,
+    idimages INT NOT NULL PRIMARY KEY,
+    donnees VARCHAR(2048) NOT NULL,
+    idkitrepas INT NOT NULL,
 
-    FOREIGN KEY (idKitRepas) REFERENCES TP4_Livraison.KitRepas ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (idkitrepas) REFERENCES TP4_Livraison.Kitrepas ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Ingredient (
-    idIngredient SERIAL NOT NULL PRIMARY KEY,
-    nomIngredient VARCHAR(255) NOT NULL,
-    paysIngredient VARCHAR(255)
+    idingredient INT NOT NULL PRIMARY KEY,
+    nomingredient VARCHAR(255) NOT NULL,
+    paysingredient VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Contenir (
-    idKitRepas SERIAL NOT NULL,
-    idIngredient SERIAL NOT NULL,
+    idkitrepas INT NOT NULL,
+    idingredient INT NOT NULL,
     
-    PRIMARY KEY (idKitRepas, idIngredient),
-    FOREIGN KEY (idKitRepas) REFERENCES TP4_Livraison.KitRepas ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (idIngredient) REFERENCES TP4_Livraison.Ingredient ON UPDATE CASCADE ON DELETE CASCADE
+    PRIMARY KEY (idkitrepas, idingredient),
+    FOREIGN KEY (idkitrepas) REFERENCES TP4_Livraison.Kitrepas ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (idingredient) REFERENCES TP4_Livraison.Ingredient ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS TP4_Livraison.Etape (
-    idKitRepas SERIAL NOT NULL,
+    idkitrepas INT NOT NULL,
     numeroEtape VARCHAR(255),
     descriptionEtape VARCHAR(255) NOT NULL,
     dureeEtape SMALLINT NOT NULL,
-    idKitRepasPartieDe SERIAL,
+    idkitrepaspartiede INT,
     
-    PRIMARY KEY (idKitRepas, numeroEtape),
-    FOREIGN KEY (idKitRepas) REFERENCES TP4_Livraison.KitRepas ON UPDATE CASCADE ON DELETE CASCADE
+    PRIMARY KEY (idkitrepas, numeroEtape),
+    FOREIGN KEY (idkitrepas) REFERENCES TP4_Livraison.Kitrepas ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
@@ -156,18 +156,36 @@ INSERT INTO TP4_Livraison.Fournisseur VALUES (6, 'AB Transport',        'Rue C')
 INSERT INTO TP4_Livraison.Fournisseur VALUES (7, 'Big money guy',       'Rue Boogie');
 
 --                                          id  categorie    fréquence  personnes   calories    prix    fournisseur
-INSERT INTO TP4_Livraison.PlanRepas VALUES (1, 'Végétarien', 2,         2,          150,        22.00,  1);
-INSERT INTO TP4_Livraison.PlanRepas VALUES (2, 'Indien',     1,         4,          400,        44.50,  1);
-INSERT INTO TP4_Livraison.PlanRepas VALUES (3, 'Mijoteuse',  1,         4,          350,        52.50,  2);
-INSERT INTO TP4_Livraison.PlanRepas VALUES (4, 'Noël',       2,         2,          350,        26.25,  2);
-INSERT INTO TP4_Livraison.PlanRepas VALUES (5, 'Cétogène',   3,         3,          80,         17.75,  2);
-INSERT INTO TP4_Livraison.PlanRepas VALUES (6, 'Fanceyoyy',  8,         80,         12000,      15000,  7);
-INSERT INTO TP4_Livraison.PlanRepas VALUES (7, 'Moneymoney', 5,         12,         22000,      9000,   7);
-INSERT INTO TP4_Livraison.PlanRepas VALUES (8, 'Cétogène',   1,         8,          1110,       12500,  1);
+INSERT INTO TP4_Livraison.Planrepas VALUES (1, 'Végétarien', 2,         2,          150,        22.00,  1);
+INSERT INTO TP4_Livraison.Planrepas VALUES (2, 'Indien',     1,         4,          400,        44.50,  1);
+INSERT INTO TP4_Livraison.Planrepas VALUES (3, 'Mijoteuse',  1,         4,          350,        52.50,  2);
+INSERT INTO TP4_Livraison.Planrepas VALUES (4, 'Noël',       2,         2,          350,        26.25,  2);
+INSERT INTO TP4_Livraison.Planrepas VALUES (5, 'Cétogène',   3,         3,          80,         17.75,  2);
+INSERT INTO TP4_Livraison.Planrepas VALUES (6, 'Fanceyoyy',  8,         80,         12000,      15000,  7);
+INSERT INTO TP4_Livraison.Planrepas VALUES (7, 'Moneymoney', 5,         12,         22000,      9000,   7);
+INSERT INTO TP4_Livraison.Planrepas VALUES (8, 'Cétogène',   1,         8,          1110,       12500,  1);
 
 --                                        id  
 INSERT INTO TP4_Livraison.Famille VALUES (5);
 INSERT INTO TP4_Livraison.Famille VALUES (8);
+INSERT INTO TP4_Livraison.Famille VALUES (4);
+INSERT INTO TP4_Livraison.Famille VALUES (6);
+
+--                                       id  nbingredients 
+INSERT INTO TP4_Livraison.Facile VALUES (5,  4);
+INSERT INTO TP4_Livraison.Facile VALUES (8,  3);
+
+--                                       id  tempsprepa 
+INSERT INTO TP4_Livraison.Rapide VALUES (4,  30);
+INSERT INTO TP4_Livraison.Rapide VALUES (6,  15);
+
+--                                           id  typerepas 
+INSERT INTO TP4_Livraison.Vegetarien VALUES (1,  'Persillé');
+INSERT INTO TP4_Livraison.Vegetarien VALUES (2,  'Massalah');
+
+--                                            id  typepoisson 
+INSERT INTO TP4_Livraison.Pescetarien VALUES (3,  'Tilapia');
+INSERT INTO TP4_Livraison.Pescetarien VALUES (7,  'Saumon');
 
 --                                        client    plan   duree
 INSERT INTO TP4_Livraison.Abonner VALUES (1,        2,     4);
@@ -178,12 +196,12 @@ INSERT INTO TP4_Livraison.Abonner VALUES (2,        5,     15);
 INSERT INTO TP4_Livraison.Abonner VALUES (3,        4,     51); -- juste 51 semaines parce qu'à Noël il mange des biscuits
 
 --                                         id  nom                                          planrepas
-INSERT INTO TP4_Livraison.KitRepas VALUES (1, 'Tofu général tao',                           1); 
-INSERT INTO TP4_Livraison.KitRepas VALUES (2, 'Tacos végé au fromage fondant',              1);
-INSERT INTO TP4_Livraison.KitRepas VALUES (3, 'Poulet au beurre',                           2);
-INSERT INTO TP4_Livraison.KitRepas VALUES (4, 'Brochette de porc Yakiton',                  3);
-INSERT INTO TP4_Livraison.KitRepas VALUES (5, 'Bavette au beurre à léchalotte française',   4);
-INSERT INTO TP4_Livraison.KitRepas VALUES (6, 'Filets de turbot meunière',                  4);
+INSERT INTO TP4_Livraison.Kitrepas VALUES (1, 'Tofu général tao',                           1); 
+INSERT INTO TP4_Livraison.Kitrepas VALUES (2, 'Tacos végé au fromage fondant',              1);
+INSERT INTO TP4_Livraison.Kitrepas VALUES (3, 'Poulet au beurre',                           2);
+INSERT INTO TP4_Livraison.Kitrepas VALUES (4, 'Brochette de porc Yakiton',                  3);
+INSERT INTO TP4_Livraison.Kitrepas VALUES (5, 'Bavette au beurre à léchalotte française',   4);
+INSERT INTO TP4_Livraison.Kitrepas VALUES (6, 'Filets de turbot meunière',                  4);
 
 --                                      id  data                                                                            kitrepas
 INSERT INTO TP4_Livraison.Image VALUES (1, 'https://images.ricardocuisine.com/services/recipes/5675.jpg',                   1);
@@ -242,3 +260,7 @@ INSERT INTO TP4_Livraison.Contenir VALUES(6,        19);
 INSERT INTO TP4_Livraison.Contenir VALUES(6,        21);
 INSERT INTO TP4_Livraison.Contenir VALUES(6,        20);
 INSERT INTO TP4_Livraison.Contenir VALUES(6,        22);
+
+--                                      id  numero  desc                         duree   idkitrepaspartiede
+INSERT INTO TP4_Livraison.Etape VALUES (1,  1,      'Couper le tofu en cubes',   1,      NULL);
+INSERT INTO TP4_Livraison.Etape VALUES (1,  2,      'Enrober de fécule de maïs', 1,      NULL);

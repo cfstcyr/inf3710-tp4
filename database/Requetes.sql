@@ -7,7 +7,7 @@ INNER JOIN TP4_Livraison.Abonner abo
     ON c.idClient = abo.idClient
 INNER JOIN TP4_Livraison.PlanRepas plan 
     ON abo.idPlan = plan.idplanrepas
-WHERE plan.prix >= 20 AND plan.prix <= 40;
+WHERE plan.prix BETWEEN 20 AND 40;
 
 -- 4.2 Afficher les numéros des plans repas (numéroplan) qui ne proviennent pas  
 -- du fournisseur au nom de 'QC Transport'
@@ -24,7 +24,7 @@ WHERE fourn.nomFournisseur <> 'QC Transport';
 SELECT DISTINCT fam.idplanrepas
 FROM TP4_Livraison.Famille fam
 INNER JOIN TP4_Livraison.PlanRepas plan
-ON plan.idplanrepas = fam.idfournisseurs
+    ON plan.idplanrepas = fam.idfournisseurs
 WHERE plan.categorie = 'cétogène';
 
 -- 4.4 Affichez le nombre de fournisseurs n’ayant pas de nom dans leur 
@@ -32,7 +32,7 @@ WHERE plan.categorie = 'cétogène';
 
 SELECT COUNT(*)
 FROM TP4_Livraison.Fournisseur f
-WHERE f.nomfournisseur is NULL;
+WHERE f.nomfournisseur IS NULL;
 
 -- 4.5 Affichez les noms des fournisseurs (nomfournisseur) ayant fait des 
 -- livraisons de plans repas dont le montant est supérieur aux livraisons 
@@ -44,7 +44,7 @@ WITH totallivraisonsfournisseurs AS (
     FULL OUTER JOIN TP4_Livraison.Fournisseur fourn
         ON plan.idfournisseur = fourn.idfournisseur
 	  GROUP BY fourn.idfournisseur
-);
+)
 
 SELECT nomfournisseur
 FROM totallivraisonsfournisseurs
@@ -78,7 +78,7 @@ WITH plansNonCommandes AS (
 		SELECT abo.idPlan
 		FROM TP4_Livraison.abonner abo
 	)
-);
+)
 
 SELECT COUNT(*) FROM plansNonCommandes;
 
@@ -116,8 +116,8 @@ ORDER BY LOWER(ing.paysIngredient) DESC;
 -- triés par ordre croissant selon le nom de la catégorie du plan repas et par ordre 
 -- décroissant selon 'V_tot'. Finalement, afficher le résultat de cette vue. 
 
-CREATE VIEW v_fournisseur AS 
-SELECT plan.categorie as v_categorie, fourn.adresseFournisseur as v_adresse, SUM(plan.prix) as v_tot
+CREATE VIEW V_fournisseur AS 
+SELECT plan.categorie as "V_categorie", fourn.adresseFournisseur as "V_adresse", SUM(plan.prix) as "V_tot"
 FROM TP4_Livraison.Fournisseur fourn
 FULL OUTER JOIN TP4_Livraison.PlanRepas plan
     ON fourn.idfournisseur = plan.idfournisseur
@@ -127,5 +127,4 @@ GROUP BY plan.categorie, fourn.adresseFournisseur
 HAVING SUM(plan.prix) > 12500  
 ORDER BY LOWER(plan.categorie) ASC, SUM(plan.prix) DESC;
 
-
-SELECT * FROM v_fournisseur;
+SELECT * FROM V_fournisseur;
