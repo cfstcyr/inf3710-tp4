@@ -63,6 +63,10 @@ export class AddPlanRepasComponent extends HelpersComponent implements OnInit, O
     this.dataService.subscribe('fournisseur', (fournisseurs) => {
       this.fournisseurs = fournisseurs;
     });
+    this.dataService.subscribe('planRepas', (plans) => {
+      const currentCategories = plans.data.map(plan => plan.categorie);
+      this.categories = [... new Set(currentCategories.concat(CATEGORIES))].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+    });
   }
 
   ngOnChanges(): void {
