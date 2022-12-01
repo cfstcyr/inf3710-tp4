@@ -36,19 +36,19 @@ export class AddPlanRepasComponent extends HelpersComponent implements OnInit, O
       newCategorie: new FormControl(this.getRandomCategory(), [
         Validators.required,
       ]),
-      newFrequence: new FormControl(defaultPlan.frequence, [
+      newFrequence: new FormControl(Math.floor(Math.random() * 7 + 1), [
         Validators.required,
         Validators.min(1),
       ]),
-      newNbrPersonnes: new FormControl(defaultPlan.nbrpersonnes, [
+      newNbrPersonnes: new FormControl(Math.floor(Math.random() * 6 + 1), [
         Validators.required,
         Validators.min(1),
       ]),
-      newNbrCalories: new FormControl(defaultPlan.nbrcalories, [
+      newNbrCalories: new FormControl(Math.floor(Math.random() * 10 + 1) * 100, [
         Validators.required,
         Validators.min(1),
       ]),
-      newPrix: new FormControl(defaultPlan.prix, [
+      newPrix: new FormControl(Math.floor(Math.random() * 100 + 1), [
         Validators.required,
         Validators.min(1),
       ]),
@@ -62,6 +62,7 @@ export class AddPlanRepasComponent extends HelpersComponent implements OnInit, O
   ngOnInit(): void {
     this.dataService.subscribe('fournisseur', (fournisseurs) => {
       this.fournisseurs = fournisseurs;
+      this.formParameters.setValue({ ...this.formParameters.value, newIdFournisseur: this.getRandomFournisseur() });
     });
     this.dataService.subscribe('planRepas', (plans) => {
       const currentCategories = plans.data.map(plan => plan.categorie);
@@ -95,5 +96,10 @@ export class AddPlanRepasComponent extends HelpersComponent implements OnInit, O
 
   private getRandomCategory(): string {
     return CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)];
+  }
+
+  private getRandomFournisseur(): number {
+    console.log(this.fournisseurs);
+    return this.fournisseurs && this.fournisseurs.data.length ? this.fournisseurs.data[Math.floor(Math.random() * this.fournisseurs.data.length)].idfournisseur : 1;
   }
 }
