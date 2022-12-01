@@ -151,7 +151,7 @@ INSERT INTO TP4_Livraison.Fournisseur VALUES (1, 'IGA Nourriture Inc',  'Rue de 
 INSERT INTO TP4_Livraison.Fournisseur VALUES (2, 'RICARDO',             'Rue de Richard');
 INSERT INTO TP4_Livraison.Fournisseur VALUES (3, 'QC Transport',        'Rue du Québec');
 INSERT INTO TP4_Livraison.Fournisseur VALUES (4, 'Benjamin',            'Rue de Marseille Montréal B2B 2B2');
-INSERT INTO TP4_Livraison.Fournisseur VALUES (5, NULL,                  'Rue qui existe pas');
+INSERT INTO TP4_Livraison.Fournisseur VALUES (5,  NULL,                  'Rue qui existe pas');
 INSERT INTO TP4_Livraison.Fournisseur VALUES (6, 'AB Transport',        'Rue C');
 INSERT INTO TP4_Livraison.Fournisseur VALUES (7, 'Big money guy',       'Rue Boogie');
 

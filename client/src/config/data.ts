@@ -7,21 +7,31 @@ export interface TableItemConfig<T> {
 }
 
 export const TABLE_ITEMS: { [K in keyof TableItem]: TableItemConfig<TableItem[K]> } = {
-    planRepas: {
-        path: 'plan-repas',
-        name: 'Plan repas',
-        idKey: 'idplanrepas',
-    },
     client: {
         path: 'client',
         name: 'Client',
         idKey: 'idclient',
     },
+    telephone: {
+        path: 'telephone',
+        name: 'Téléphone',
+        idKey: 'numerotelephone',
+    },
+    kitRepas: {
+      path: 'kit-repas',
+      name: 'Kit repas',
+      idKey: 'idkitrepas',  
+    },
+    planRepas: {
+        path: 'plan-repas',
+        name: 'Plan repas',
+        idKey: 'idplanrepas',
+    },
     fournisseur: {
         path: 'fournisseur',
         name: 'Fournisseur',
         idKey: 'idfournisseur',
-    }
+    },
 };
 
 export function getTables(): (keyof TableItem)[] {

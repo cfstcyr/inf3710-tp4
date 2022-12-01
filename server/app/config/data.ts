@@ -9,15 +9,25 @@ export interface TableItemConfig<T> {
 export const TABLE_ITEMS: {
     [K in keyof TableItem]: TableItemConfig<TableItem[K]>;
 } = {
+    client: {
+        path: 'client',
+        table: 'TP4_Livraison.Client',
+        idKey: 'idclient',
+    },
+    telephone: {
+        path: 'telephone',
+        table: 'TP4_Livraison.Telephone',
+        idKey: 'numerotelephone',
+    },
     planRepas: {
         path: 'plan-repas',
         table: 'TP4_Livraison.PlanRepas',
         idKey: 'idplanrepas',
     },
-    client: {
-        path: 'client',
-        table: 'TP4_Livraison.Client',
-        idKey: 'idclient',
+    kitRepas: {
+        path: 'kit-repas',
+        table: 'TP4_Livraison.KitRepas',
+        idKey: 'idkitrepas',
     },
     fournisseur: {
         path: 'fournisseur',
