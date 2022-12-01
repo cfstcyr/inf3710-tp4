@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Fournisseur } from 'common/tables';
 import { PlanRepas } from 'common/tables/plan-repas';
 import { HelpersComponent } from 'src/components/helpers-component/helpers.component';
+import { CATEGORIES } from 'src/constants/categories';
 import { DataService } from 'src/services/data-service/data.service';
 import { CollectionData } from 'src/utils/data';
 import { AddPlanRepasComponent } from '../add-plan-repas/add-plan-repas.component';
@@ -17,6 +18,7 @@ export class UpdatePlanRepasComponent extends HelpersComponent implements OnInit
   planRepas: PlanRepas;
   fournisseurs?: CollectionData<Fournisseur>;
   formParameters: FormGroup;
+  categories = CATEGORIES;
 
   constructor(
     public dialogRef: MatDialogRef<AddPlanRepasComponent>,
@@ -57,6 +59,10 @@ export class UpdatePlanRepasComponent extends HelpersComponent implements OnInit
     this.dataService.subscribe('fournisseur', (fournisseurs) => {
       this.fournisseurs = fournisseurs;
     });
+    this.dataService.subscribe('planRepas', (plans) => {
+      const currentCategories = plans.data.map(plan => plan.categorie);
+      this.categories = [... new Set(currentCategories.concat(CATEGORIES))].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+    });
   }
 
   ngOnChanges(): void {
@@ -85,4 +91,9 @@ export class UpdatePlanRepasComponent extends HelpersComponent implements OnInit
     this.dataService.update('planRepas');
     this.closeDialog();
   }
+
+  private getRandomCategory(): string {
+    return CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)];
+  }
+
 }
