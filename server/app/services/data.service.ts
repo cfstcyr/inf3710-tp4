@@ -22,7 +22,7 @@ export class DataService {
     ): Promise<void> {
         const id = await this.databaseService.queryOne<{ max: number }>(
             `SELECT max(${this.getIdKey(table)}) 
-                FROM ${this.getTableName(table)}`,
+                FROM ${this.getTableName(table)};`,
         );
 
         data[this.getIdKey(table)] = id.max + 1;
@@ -32,7 +32,7 @@ export class DataService {
                 (${Object.keys(data).join(', ')})
                 VALUES (${Object.values(data)
                     .map((_, i) => `$${i + 1}`)
-                    .join(', ')})`,
+                    .join(', ')});`,
             [...Object.values(data)],
         );
     }

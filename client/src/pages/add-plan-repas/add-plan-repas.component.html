@@ -111,7 +111,7 @@
           >
             <mat-option disabled>Fournisseur</mat-option>
             <mat-option *ngFor="let fournisseur of fournisseurs?.data" [value]="fournisseur.idfournisseur">
-                {{ fournisseur.nomfournisseur }}
+              #{{fournisseur.idfournisseur}} - {{ fournisseur.nomfournisseur }}
             </mat-option>
           </mat-select>
       </mat-form-field>
