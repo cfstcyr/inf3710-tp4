@@ -1,10 +1,10 @@
 <div class="container">
-    <mat-card>
+    <mat-card [ngClass]="'header'">
       <h1 [ngClass]="[Display.margin[0], Display.margin.bottom[2]]"></h1>
       <h2>{{ name }}</h2>
-      <div [ngClass]="[Display.flex, Display.gap[3]]">
-          <a *ngFor="let tableName of tableNames" [routerLink]="'/data/' + tableItems[tableName].path" mat-flat-button color="primary">
-              {{tableItems[tableName].name}}
+      <div [ngClass]="[Display.flex, Display.gap[3], 'header__buttons-container']">
+          <a *ngFor="let tableName of tableItemsHere" [routerLink]="'/data/' + tableName.path" mat-flat-button [ngClass]="['header__button', (tableName.active ? 'header__button--active' : '')]" color="primary">
+              {{tableName.name}}
           </a>
       </div>
   </mat-card>

@@ -1,0 +1,20 @@
+@use '@angular/material' as mat;
+@import '../../styles/themes.scss';
+
+
+.header {
+    &__button {
+        border: mat.get-color-from-palette(mat.$green-palette, 700) solid 2px !important;
+
+        &--active {
+            color: mat.get-color-from-palette(mat.$green-palette, 700) !important;
+            background-color: white !important;
+            cursor: default;
+        }
+        
+        &:hover {
+            color: mat.get-color-from-palette(mat.$green-palette, 700) !important;
+            background-color: white !important;
+        }
+    }
+}
