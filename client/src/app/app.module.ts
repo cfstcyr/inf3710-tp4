@@ -15,6 +15,7 @@ import { DataPageComponent } from 'src/pages/data-page/data-page.component';
 import { NotFoundComponent } from '../pages/not-found/not-found.component';
 import { DeleteTableItemComponent } from '../components/delete-table-item/delete-table-item.component';
 import { AlertComponent } from '../components/alert/alert.component';
+import { FooterComponent } from '../components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AlertComponent } from '../components/alert/alert.component';
     NotFoundComponent,
     DeleteTableItemComponent,
     AlertComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
