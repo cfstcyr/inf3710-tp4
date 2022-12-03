@@ -3,9 +3,9 @@ import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@
 import { MatDialog } from '@angular/material/dialog';
 import { TableItem } from 'common/tables';
 import { Subject, Subscription } from 'rxjs';
-import { AddPlanRepasComponent } from 'src/pages/add-plan-repas/add-plan-repas.component';
-import { DeleteTableItemComponent, DeleteTableItemData } from 'src/pages/delete-table-item/delete-table-item.component';
-import { UpdatePlanRepasComponent } from 'src/pages/update-plan-repas/update-plan-repas.component';
+import { AddPlanRepasComponent } from 'src/components/add-plan-repas/add-plan-repas.component';
+import { DeleteTableItemComponent, DeleteTableItemData } from 'src/components/delete-table-item/delete-table-item.component';
+import { UpdatePlanRepasComponent } from 'src/components/update-plan-repas/update-plan-repas.component';
 import { DataService } from 'src/services/data-service/data.service';
 import { CollectionData, DefaultCollectionData } from 'src/utils/data';
 import { HelpersComponent } from '../helpers-component/helpers.component';
